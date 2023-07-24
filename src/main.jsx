@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Authenticate from './layaouts/authenticate.jsx'
-import Login from './pages/login.jsx'
 import './index.css'
 
 import {RouterProvider,createBrowserRouter} from 'react-router-dom'
+
+import Authenticate from './layaouts/authenticate.jsx'
+import Login from './pages/login.jsx'
+import Register from './pages/register'
+import RecoverPassword from './pages/recoverPassword'
 
 const router=createBrowserRouter([
   {
@@ -14,6 +17,14 @@ const router=createBrowserRouter([
       {
         index:true,
         element:<Login/>
+      },
+      {
+        path:'register',
+        element:<Register/>
+      },
+      {
+        path:'recover-password',
+        element:<RecoverPassword/>
       }
     ]
   }
