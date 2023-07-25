@@ -41,8 +41,9 @@ function Register() {
                 error:false
             })
         }catch(error) {
+            console.log(error)
             setAlert({
-                msg:error.response.data.msg,
+                msg:error.response?.data.msg || error.message,
                 error:true
             })
         }

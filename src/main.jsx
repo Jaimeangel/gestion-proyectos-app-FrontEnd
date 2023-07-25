@@ -8,14 +8,15 @@ import Authenticate from './layaouts/authenticate.jsx'
 import Login from './pages/login.jsx'
 import Register from './pages/register'
 import RecoverPassword from './pages/recoverPassword'
+import RecoverPasswordToken from './pages/recoverPasswordToken'
 
 const router=createBrowserRouter([
   {
-    path:'/login',
+    path:'/',
     element:<Authenticate/>,
     children:[
       {
-        index:true,
+        path:'login',
         element:<Login/>
       },
       {
@@ -25,6 +26,10 @@ const router=createBrowserRouter([
       {
         path:'recover-password',
         element:<RecoverPassword/>
+      },
+      {
+        path:'recover-password/:token',
+        element:<RecoverPasswordToken/>
       }
     ]
   }
