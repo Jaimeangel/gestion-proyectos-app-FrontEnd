@@ -75,12 +75,12 @@ function Login() {
 
                 <div className="text-center mt-5">
                     <Link
-                        to={'register'}
+                        to={'/register'}
                     >
                         <p className="underline">¿Aun no tienes cuenta? Registrate aqui</p>
                     </Link>
                     <Link
-                        to={'recover-password'}
+                        to={'/recover-password'}
                     >
                         <p className="underline">Olvide mi contraseña</p>
                     </Link>

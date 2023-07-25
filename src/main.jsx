@@ -9,6 +9,7 @@ import Login from './pages/login.jsx'
 import Register from './pages/register'
 import RecoverPassword from './pages/recoverPassword'
 import RecoverPasswordToken from './pages/recoverPasswordToken'
+import ConfirmationToken from './pages/confirmationToken'
 
 const router=createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router=createBrowserRouter([
       {
         path:'recover-password/:token',
         element:<RecoverPasswordToken/>
+      },
+      {
+        path:'confirmation/:token',
+        element:<ConfirmationToken/>
       }
     ]
   }
