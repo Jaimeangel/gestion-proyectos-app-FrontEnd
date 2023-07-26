@@ -51,22 +51,25 @@ function ConfirmationToken() {
     },[])
 
     return (
-        <div className='w-full px-5 py-10 shadow-lg rounded-2xl'>
+        <div className='w-[48rem] px-5 py-10 shadow-lg rounded-2xl flex justify-center'>
                 {alert.msg.length!==0 && <AlertImage msgError={alert.msg}/>}
 
                 {errNet.msg.length!==0 && <ErrorNetwork msgError={errNet.msg}/>}
 
                 {
                     valid && (
-                        <div className="w-full flex flex-col items-center">
-                            <img 
-                                src={pasoCompleto} 
-                                alt="imagen de confirmacion"
-                                className="w-3/6" 
-                            />
-                            <div className="w-full flex flex-col items-center mt-5">
-                                <h1 className="font-bold italic text-3xl text-justify">{`¡Felicidades ${user}! has confirmado tu cuenta`}</h1>
-                                <p className="text-justify font-semibold text-xl mt-4">Ahora ya puedes ingresar a tu cuenta</p>
+                        <div className="w-full flex flex-col sm:flex-row items-center">
+                            <div className="w-full sm:w-1/2 flex justify-center">
+                                <img 
+                                    src={pasoCompleto} 
+                                    alt="imagen de confirmacion"
+                                    className="max-w-[16rem]" 
+                                />
+                            </div>
+                            <div className="max-w-[22rem] sm:w-1/2 mt-5 flex flex-col items-center">
+                                <h1 className="font-bold italic text-3xl text-center">{`¡Felicidades ${user}!`}</h1>
+                                <h2 className="font-bold italic text-2xl text-justify">{`has confirmado tu cuenta exitosamente`}</h2>
+                                <p className="text-justify font-semibold text-xl mt-4">Puedes ingresar ahora haciendo click en el boton de abajo</p>
                                 <Link
                                     to={'/login'}
                                     className="w-full"

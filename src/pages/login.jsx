@@ -42,7 +42,7 @@ function Login() {
     }
 
     return (
-        <div className='w-full px-5 py-10 shadow-lg rounded-2xl'>
+        <div className='w-[28rem] px-5 py-10 shadow-lg rounded-2xl'>
             <div className='w-full'>
 
                 <h2 className='text-center font-bold text-2xl'>Acceder a su cuenta</h2>
