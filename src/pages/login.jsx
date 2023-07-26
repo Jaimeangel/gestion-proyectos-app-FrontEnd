@@ -42,34 +42,36 @@ function Login() {
     }
 
     return (
-        <div className='w-full px-5'>
+        <div className='w-full px-5 py-10 shadow-lg rounded-2xl'>
             <div className='w-full'>
 
-                <h2 className='text-center font-bold text-2xl uppercase'>Ingresa sesion</h2>
+                <h2 className='text-center font-bold text-2xl'>Acceder a su cuenta</h2>
+                <p className="text-center text-black text-md italic mt-1">Accede a tu cuenta con tu email que usaste para registrarte</p>
 
                 {alert.msg.length!==0 && <Alert alert={alert}/>}
 
                 <form onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-1 items-left mt-3'>
-                        <label className='text-lg'>Email</label>
+                        <label className='text-lg font-bold'>Email</label>
                         <input
                             onChange={(e)=>setEmail(e.target.value)} 
                             type="text"
-                            className='border rounded-2xl px-3 py-2 border-black'
+                            placeholder="tucorreo@dominio.com"
+                            className='placeholder:text-gray-500 placeholder:italic placeholder:text-lg tracking-wider bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
                         />
                     </div>
                     <div className='flex flex-col gap-1 items-left mt-3'>
-                        <label className='text-lg'>Contraseña</label>
+                        <label className='text-lg font-bold'>Contraseña</label>
                         <input
                             onChange={(e)=>setPassword(e.target.value)}  
                             type="password"
-                            className='border rounded-2xl px-3 py-2 border-black'
+                            className='bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
                         />
                     </div>
                     <input 
                         type="submit" 
-                        value="Ingresar"
-                        className='w-full uppercase bg-yellow-400 px-3 py-2 rounded-2xl border border-black mt-5 font-bold'
+                        value="Iniciar sesion"
+                        className='w-full tracking-wider cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded-2xl border border-black mt-5 font-bold'
                     ></input>
                 </form>
 
