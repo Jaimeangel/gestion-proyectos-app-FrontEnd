@@ -52,7 +52,7 @@ function Login() {
 
                 <form onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-1 items-left mt-3'>
-                        <label className='text-lg font-bold'>Email</label>
+                        <label className='text-lg font-bold tracking-wider italic'>Email</label>
                         <input
                             onChange={(e)=>setEmail(e.target.value)} 
                             type="text"
@@ -61,7 +61,7 @@ function Login() {
                         />
                     </div>
                     <div className='flex flex-col gap-1 items-left mt-3'>
-                        <label className='text-lg font-bold'>Contraseña</label>
+                        <label className='text-lg font-bold tracking-wider italic'>Contraseña</label>
                         <input
                             onChange={(e)=>setPassword(e.target.value)}  
                             type="password"
