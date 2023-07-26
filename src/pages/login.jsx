@@ -57,7 +57,7 @@ function Login() {
                             onChange={(e)=>setEmail(e.target.value)} 
                             type="text"
                             placeholder="tucorreo@dominio.com"
-                            className='placeholder:text-gray-500 placeholder:italic placeholder:text-lg tracking-wider bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
+                            className='placeholder:text-gray-500 placeholder:italic placeholder:text-lg tracking-wider bg-gray-50 cursor-pointer border rounded-3xl px-6 py-2 border-black'
                         />
                     </div>
                     <div className='flex flex-col gap-1 items-left mt-3'>
@@ -65,13 +65,13 @@ function Login() {
                         <input
                             onChange={(e)=>setPassword(e.target.value)}  
                             type="password"
-                            className='bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
+                            className='bg-gray-50 cursor-pointer border rounded-3xl px-6 py-2 border-black'
                         />
                     </div>
                     <input 
                         type="submit" 
                         value="Iniciar sesion"
-                        className='w-full tracking-wider cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded-2xl border border-black mt-5 font-bold'
+                        className='w-full tracking-wider cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded border border-black mt-5 font-bold'
                     ></input>
                 </form>
 
