@@ -1,7 +1,11 @@
 import { useState } from "react"
-import Alert from "../components/alert";
 import axios from "axios";
 import imageConfirm from '../assets/undraw_online_stats_0g94.svg'
+
+
+import Alert from "../components/alert";
+import InputForm from "../components/inputForm";
+import ButtonForm from "../components/buttonForm";
 
 function RecoverPassword() {
 
@@ -66,20 +70,17 @@ function RecoverPassword() {
                         {alert.msg.length!==0 && <Alert alert={alert}/>}
         
                         <form onSubmit={handleSubmit}>
-                            <div className='flex flex-col gap-1 items-left mt-3'>
-                                <label className='text-lg font-bold tracking-wider italic'>Ingresa tu email de registro</label>
-                                <input
-                                    onChange={(e)=>setEmail(e.target.value)} 
-                                    type="text"
-                                    placeholder="tucorreo@dominio.com"
-                                    className='placeholder:text-gray-500 placeholder:italic placeholder:text-lg tracking-wider bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
-                                />
-                            </div>
-                            <input 
-                                type="submit" 
-                                value="Solicitar"
-                                className='w-full tracking-wider cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded-2xl border border-black mt-5 font-bold'
-                            ></input>
+                            <InputForm
+                                callback={setEmail}
+                                typeInput='text'
+                                name='Ingresa tu email de registro'
+                                phder='tucorreo@dominio.com'
+                            />
+                            <ButtonForm
+                                type='submit' 
+                                value='Solicitar'
+                                width='full'
+                            />
                         </form>
     
                     </div>

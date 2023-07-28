@@ -1,9 +1,13 @@
 import { useEffect,useState } from "react";
 import { useParams , Link} from "react-router-dom"
+
 import axios from "axios";
+
 import Alert from "../components/alert.jsx";
 import AlertImage from "../components/alertImage.jsx";
 import ErrorNetwork from "../components/errorNetwork.jsx";
+import InputForm from "../components/inputForm";
+import ButtonForm from "../components/buttonForm";
 
 import confirmedPasswordChange from '../assets/undraw_confirm_re_69me.svg'
 
@@ -63,6 +67,8 @@ function RecoverPasswordToken() {
             msg:'Las contraseñas no coinciden',
             error:true
         })
+        setNewPassword('')
+        setRptPassword('')
         return
     }
             
@@ -104,30 +110,25 @@ function RecoverPasswordToken() {
               {alert.msg.length!==0 && <Alert alert={alert}/>}
 
               <form onSubmit={handleSubmit}>
-
-                <div className='flex flex-col gap-1 items-left mt-3'>
-                  <label className='text-lg font-bold tracking-wider italic'>Contraseña</label>
-                  <input
-                    onChange={(e)=>setNewPassword(e.target.value)}  
-                    type="password"
-                    className='bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
-                  />
-                </div>
-
-                <div className='flex flex-col gap-1 items-left mt-3'>
-                  <label className='text-lg font-bold tracking-wider italic'>Repetir Contraseña</label>
-                  <input
-                    onChange={(e)=>setRptPassword(e.target.value)}  
-                    type="password"
-                    className='bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
-                  />
-                </div>
-
-                <input 
-                    type="submit" 
-                    value="Restablecer"
-                    className='w-full tracking-wider cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded-2xl border border-black mt-5 font-bold'
-                ></input>
+                <InputForm
+                  value={newPassword}
+                  callback={setNewPassword}
+                  typeInput='password'
+                  name='Contraseña'
+                  phder='password'
+                />
+                <InputForm
+                  value={rptPassword}
+                  callback={setRptPassword}
+                  typeInput='password'
+                  name='Repetir Contraseña'
+                  phder='repetir password'
+                />
+                <ButtonForm
+                  type='submit' 
+                  value='Restablecer'
+                  width='full'
+                />
               </form>
 
           </div>

@@ -1,9 +1,10 @@
 import { useState , useEffect} from "react"
 import { useParams , Link} from "react-router-dom"
 import axios from "axios";
+
 import AlertImage from "../components/alertImage.jsx";
 import ErrorNetwork from "../components/errorNetwork.jsx";
-
+import ButtonForm from "../components/buttonForm.jsx";
 import pasoCompleto from '../assets/undraw_completed_03xt.svg'
 
 
@@ -74,11 +75,11 @@ function ConfirmationToken() {
                                     to={'/login'}
                                     className="w-full"
                                 >
-                                    <input 
-                                        type="button" 
-                                        value="Iniciar sesion"
-                                        className='w-full cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded-lg border border-black mt-5 font-bold'
-                                    ></input>
+                                    <ButtonForm
+                                        type='button' 
+                                        value='Iniciar sesion'
+                                        width='full'
+                                    />
                                 </Link>
                             </div>
                         </div>

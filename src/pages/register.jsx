@@ -1,8 +1,15 @@
 import { useState } from "react";
+
 import axios from "axios";
-import Alert from "../components/alert";
+
+//Svgs
 import leftArrow from '../assets/left-arrow-svgrepo-com.svg'
 import imageConfirm from '../assets/undraw_online_stats_0g94.svg'
+
+//Componentes
+import Alert from "../components/alert";
+import InputForm from "../components/inputForm";
+import ButtonForm from "../components/buttonForm";
 
 function Register() {
 
@@ -46,6 +53,8 @@ function Register() {
                     msg:'Las contraseñas no coinciden',
                     error:true
                 })
+                setPassword('')
+                setRptPassword('')
                 return
             }
 
@@ -72,57 +81,49 @@ function Register() {
             case 1:
                 return (
                     <>
-                        <div className='flex flex-col gap-1 items-left mt-3'>
-                            <label className='text-lg font-bold tracking-wider italic'>Nombre</label>
-                            <input
-                                value={nombre}
-                                onChange={(e)=>setNombre(e.target.value)} 
-                                type="text"
-                                className='bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
-                            />
-                        </div>
-                        <div className='flex flex-col gap-1 items-left mt-3'>
-                            <label className='text-lg font-bold tracking-wider italic'>Email</label>
-                            <input
-                                value={email}
-                                onChange={(e)=>setEmail(e.target.value)} 
-                                type="text"
-                                placeholder="tucorreo@dominio.com"
-                                className='placeholder:text-gray-500 placeholder:italic placeholder:text-lg tracking-wider bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
-                                
-                            />
-                        </div>
-                        <input 
-                            type="submit" 
-                            value="Siguiente"
-                            className='w-1/2 self-end cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded-lg border border-black mt-5 font-bold'
-                        ></input>
+                        <InputForm
+                            value={nombre}
+                            callback={setNombre}
+                            typeInput='text'
+                            phder='Tu nombre'
+                            name='Nombre'
+                        />
+                        <InputForm
+                            value={email}
+                            callback={setEmail}
+                            typeInput='text'
+                            phder='tucorreo@dominio.com'
+                            name='Email'
+                        />
+                        <ButtonForm
+                            type='submit' 
+                            value='Siguiente'
+                            width='1/2'
+                        />
                     </>
                 )
             case 2:
                 return (
                     <>
-                        <div className='flex flex-col gap-1 items-left mt-3'>
-                            <label className='text-lg font-bold tracking-wider italic'>Contraseña</label>
-                            <input
-                                onChange={(e)=>setPassword(e.target.value)}  
-                                type="password"
-                                className='bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
-                            />
-                        </div>
-                        <div className='flex flex-col gap-1 items-left mt-3'>
-                            <label className='text-lg font-bold tracking-wider italic'>Repetir contraseña</label>
-                            <input
-                                onChange={(e)=>setRptPassword(e.target.value)}  
-                                type="password"
-                                className='bg-gray-50 cursor-pointer border rounded-2xl px-6 py-2 border-black'
-                            />
-                        </div>
-                        <input 
-                            type="submit" 
-                            value="Registrate"
-                            className='w-full cursor-pointer uppercase bg-yellow-400 px-3 py-2 rounded-lg border border-black mt-5 font-bold'
-                        ></input>
+                        <InputForm
+                            value={password}
+                            callback={setPassword}
+                            typeInput='password'
+                            name='Contraseña'
+                            phder='password'
+                        />
+                        <InputForm
+                            value={rptPassword}
+                            callback={setRptPassword}
+                            typeInput='password'
+                            name='Repetir contraseña'
+                            phder='repetir password'
+                        />
+                        <ButtonForm
+                            type='submit' 
+                            value='Registrate'
+                            width='full'
+                        />
                     </>
                 )
             default:
