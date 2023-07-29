@@ -7,7 +7,11 @@ import Alert from "../components/alert";
 import InputForm from "../components/inputForm";
 import ButtonForm from "../components/buttonForm";
 
+import useAuth from "../hooks/useAuth";
+
 function Login() {
+
+    const {setAuth}=useAuth();
 
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
@@ -25,7 +29,7 @@ function Login() {
         }
 
         try {
-            const loginUser = await axios.post('http://localhost:4000/api/usuarios/login',{
+            const {data} = await axios.post('http://localhost:4000/api/usuarios/login',{
                 email,
                 password
             })
@@ -33,6 +37,8 @@ function Login() {
                 msg:'Ingreso exitoso',
                 error:false
             })
+            localStorage.setItem('tks',data.token)
+            setAuth(data)
         }catch(error) {
             setAlert({
                 msg:error.response.data.msg,

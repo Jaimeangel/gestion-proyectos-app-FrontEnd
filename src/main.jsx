@@ -4,12 +4,19 @@ import './index.css'
 
 import {RouterProvider,createBrowserRouter} from 'react-router-dom'
 
+//Autenticacion
 import Authenticate from './layaouts/authenticate.jsx'
 import Login from './pages/login.jsx'
 import Register from './pages/register'
 import RecoverPassword from './pages/recoverPassword'
 import RecoverPasswordToken from './pages/recoverPasswordToken'
 import ConfirmationToken from './pages/confirmationToken'
+
+//Proyectos
+import ProtectRoute from './pages/protectRoute'
+import Proyectos from './pages/proyectos'
+
+import AuthProvider from './context/AuthProvider'
 
 const router=createBrowserRouter([
   {
@@ -37,11 +44,23 @@ const router=createBrowserRouter([
         element:<ConfirmationToken/>
       }
     ]
+  },
+  {
+    path:'/proyectos',
+    element:<ProtectRoute/>,
+    children:[
+      {
+        index:true,
+        element:<Proyectos/>
+      }
+    ]
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <AuthProvider>
     <RouterProvider
       router={router}
     />
+  </AuthProvider>
 )
