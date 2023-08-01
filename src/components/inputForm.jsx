@@ -9,7 +9,7 @@ function InputForm({callback,typeInput,phder,name,value}) {
             onChange={(e)=>callback(e.target.value)} 
             type={typeInput}
             placeholder={phder}
-            className='placeholder:text-gray-500 placeholder:italic placeholder:text-lg tracking-wider bg-gray-50 cursor-pointer border rounded-3xl px-6 py-2 border-black'
+            className='placeholder:text-gray-500 placeholder:italic placeholder:text-lg outline-none tracking-wider bg-gray-50 cursor-pointer border rounded-3xl px-6 py-2 border-black'
         />
     </div>
   )

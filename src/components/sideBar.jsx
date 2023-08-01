@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function SideBar() {
   return (
-    <aside className='w-1/5 h-screen shadow px-7 py-5'>
+    <aside className='w-1/5 px-7 py-5 border-r-2'>
         <h3 className='text-xl font-semibold'>Hola Jaime</h3>
         <Link
           to={'/proyectos/crear-proyecto'}

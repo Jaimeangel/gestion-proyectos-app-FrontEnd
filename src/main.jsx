@@ -17,7 +17,9 @@ import ProtectRoute from './layaouts/protectRoute'
 import Proyectos from './pages/proyectos'
 import CrearProyecto from './pages/crearProyecto'
 
+//Contexts
 import AuthProvider from './context/AuthProvider'
+import ProyectoProvider from './context/ProyectoProvider'
 
 const router=createBrowserRouter([
   {
@@ -64,8 +66,10 @@ const router=createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <AuthProvider>
-    <RouterProvider
-      router={router}
-    />
+    <ProyectoProvider>
+      <RouterProvider
+        router={router}
+      />
+    </ProyectoProvider>
   </AuthProvider>
 )

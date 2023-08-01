@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Nav() {
   return (
-    <div className='w-full flex flex-row px-7 py-4 justify-between items-center'>
+    <div className='w-full flex flex-row px-7 py-4 justify-between items-center border'>
         <h1 className='font-black text-3xl text-yellow-500 tracking-wider'>
             MSproject
         </h1>
