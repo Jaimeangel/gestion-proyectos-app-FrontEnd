@@ -1,10 +1,35 @@
+import CardProyecto from "../components/cardProyecto";
+
+import { Link } from "react-router-dom";
+
 import useProyecto from "../hooks/useProyecto";
 
+
+import emptyProyects from '../assets/undraw_empty_re_opql.svg'
+
+
 function Proyectos() {
-  const {test}=useProyecto();
-  console.log(test)
+  const {proyectos}=useProyecto();
+
   return (
-    <h1>Aqui se listan todos los proyectos</h1>
+    <div>
+      <h1 className="text-3xl font-bold italic tracking-wide">Tus proyectos</h1>
+      <h3 className="text-xl font-normal">Tus proyectos los encontraras aqui</h3>
+
+      <div 
+        className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow  grid grid-cols-2 gap-7 px-7"
+      >
+        {
+          proyectos?.map( proyecto =>{
+            return <CardProyecto
+              proyecto={proyecto}
+              key={proyecto._id}
+            />
+          })
+        }
+
+      </div>
+    </div>
   )
 }
 
