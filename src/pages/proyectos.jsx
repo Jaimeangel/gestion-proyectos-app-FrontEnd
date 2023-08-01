@@ -1,10 +1,6 @@
-import React from 'react'
-
 function Proyectos() {
   return (
-    <div>
-      <h1>Proyectos.....</h1>
-    </div>
+    <h1>Aqui se listan todos los proyectos</h1>
   )
 }
 

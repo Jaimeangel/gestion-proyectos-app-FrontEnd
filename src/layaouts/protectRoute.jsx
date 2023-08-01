@@ -1,5 +1,6 @@
 import useAuth from "../hooks/useAuth";
-import { Outlet, Navigate } from "react-router-dom";
+import MainLayaout from "./mainLayaout";
+import { Navigate } from "react-router-dom";
 
 function ProtectRoute() {
 
@@ -9,7 +10,7 @@ function ProtectRoute() {
 
     return (
         <div>
-            {auth._id ? <Outlet/> : <Navigate to={'/login'}/>}
+            {auth._id ? <MainLayaout/> : <Navigate to={'/'}/>}
         </div>
     )
 }

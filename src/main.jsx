@@ -13,8 +13,9 @@ import RecoverPasswordToken from './pages/recoverPasswordToken'
 import ConfirmationToken from './pages/confirmationToken'
 
 //Proyectos
-import ProtectRoute from './pages/protectRoute'
+import ProtectRoute from './layaouts/protectRoute'
 import Proyectos from './pages/proyectos'
+import CrearProyecto from './pages/crearProyecto'
 
 import AuthProvider from './context/AuthProvider'
 
@@ -24,7 +25,7 @@ const router=createBrowserRouter([
     element:<Authenticate/>,
     children:[
       {
-        path:'login',
+        index:true,
         element:<Login/>
       },
       {
@@ -52,6 +53,10 @@ const router=createBrowserRouter([
       {
         index:true,
         element:<Proyectos/>
+      },
+      {
+        path:'crear-proyecto',
+        element:<CrearProyecto/>
       }
     ]
   }
