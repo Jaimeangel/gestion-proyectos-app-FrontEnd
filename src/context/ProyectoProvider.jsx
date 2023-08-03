@@ -58,13 +58,35 @@ function ProyectoProvider({children}) {
         }
     }
 
+    const getProyectById= async (id)=>{
+        
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios(`http://localhost:4000/api/proyectos/${id}`,config)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <ProyectoContext.Provider
             value={{
                 alert,
                 showAlert,
                 submitProyect,
-                proyectos
+                proyectos,
+                getProyectById
             }}
         >
             {children}

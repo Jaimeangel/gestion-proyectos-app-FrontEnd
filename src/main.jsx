@@ -16,6 +16,7 @@ import ConfirmationToken from './pages/confirmationToken'
 import ProtectRoute from './layaouts/protectRoute'
 import Proyectos from './pages/proyectos'
 import CrearProyecto from './pages/crearProyecto'
+import ProyectoById from './pages/proyectoById'
 
 //Contexts
 import AuthProvider from './context/AuthProvider'
@@ -59,6 +60,10 @@ const router=createBrowserRouter([
       {
         path:'crear-proyecto',
         element:<CrearProyecto/>
+      },
+      {
+        path:':proyecto',
+        element:<ProyectoById/>
       }
     ]
   }

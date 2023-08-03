@@ -17,7 +17,7 @@ function Proyectos() {
       <h3 className="text-xl font-normal">Tus proyectos los encontraras aqui</h3>
 
       <div 
-        className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow  grid grid-cols-2 gap-7 px-7"
+        className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
       >
         {
           proyectos?.map( proyecto =>{
