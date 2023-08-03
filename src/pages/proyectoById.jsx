@@ -1,5 +1,5 @@
 import { useState ,useEffect} from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import formatDate from "../helpers/formatDate";
 
@@ -36,10 +36,14 @@ function ProyectoById() {
                     (
                         <div className="w-full px-7">
                             <div className="flex flex-row gap-5">
-                                <ButtonForm
-                                    type='button'
-                                    value='Editar'
-                                />
+                                <Link
+                                    to={`/proyectos/edit/${proyecto}`}
+                                >
+                                    <ButtonForm
+                                        type='button'
+                                        value='Editar'
+                                    />
+                                </Link>
                                 <ButtonForm
                                     type='button'
                                     value='Eliminar'

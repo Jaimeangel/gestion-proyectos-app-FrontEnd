@@ -17,6 +17,7 @@ import ProtectRoute from './layaouts/protectRoute'
 import Proyectos from './pages/proyectos'
 import CrearProyecto from './pages/crearProyecto'
 import ProyectoById from './pages/proyectoById'
+import EditProyectoById from './pages/editProyectoById'
 
 //Contexts
 import AuthProvider from './context/AuthProvider'
@@ -64,6 +65,10 @@ const router=createBrowserRouter([
       {
         path:':proyecto',
         element:<ProyectoById/>
+      },
+      {
+        path:'edit/:proyecto',
+        element:<EditProyectoById/>
       }
     ]
   }

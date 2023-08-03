@@ -6,6 +6,7 @@ const ProyectoContext=createContext()
 function ProyectoProvider({children}) {
     const [alert,setAlert]=useState({msg:'',error:false})
     const [proyectos,setProyectos]=useState([])
+    const [proyectoId,setProyectoId]=useState({})
 
     useEffect(()=>{
         const getProyectos= async ()=>{
@@ -73,7 +74,29 @@ function ProyectoProvider({children}) {
 
         try {
             const {data}= await axios(`http://localhost:4000/api/proyectos/${id}`,config)
+            setProyectoId(data)
             return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const updateProyectById= async (dataUpdate,id)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.put(`http://localhost:4000/api/proyectos/${id}`,dataUpdate,config)
+            const newProyectosUpdate = proyectos.map((proyecto) => (proyecto._id === data._id ? data : proyecto));
+            setProyectos(newProyectosUpdate)
         } catch (error) {
             console.log(error)
         }
@@ -86,7 +109,10 @@ function ProyectoProvider({children}) {
                 showAlert,
                 submitProyect,
                 proyectos,
-                getProyectById
+                getProyectById,
+                proyectoId,
+                updateProyectById,
+                setProyectoId
             }}
         >
             {children}
