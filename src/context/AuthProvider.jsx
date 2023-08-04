@@ -6,16 +6,14 @@ const AuthContext=createContext()
 
 function AuthProvider({children}) {
 
-
+    const [alert,setAlert]=useState({msg:'',err:false})
     const [auth,setAuth]=useState('')
-    const [cargando,setCargando]=useState(true)
 
     useEffect(()=>{
         const authUser= async ()=>{
             const token=localStorage.getItem('tks')
     
             if(!token){
-                setCargando(false)
                 console.log('aqui no hay token')
                 return
             }
@@ -30,11 +28,13 @@ function AuthProvider({children}) {
             try {
                 const {data} = await axios('http://localhost:4000/api/usuarios/perfil',config)
                 setAuth(data)
-                setCargando(false)
-                return redirect('/proyectos')
+                setAlert({err:false})
             } catch (error) {
                 console.log(error)
-                setCargando(false)
+                setAlert({
+                    msg:error,
+                    err:true
+                })
             }
         }
 
@@ -48,7 +48,7 @@ function AuthProvider({children}) {
             value={{
                 setAuth,
                 auth,
-                cargando 
+                alert 
             }}
         >
             {children}

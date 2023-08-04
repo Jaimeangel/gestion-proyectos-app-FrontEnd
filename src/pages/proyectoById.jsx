@@ -13,7 +13,7 @@ function ProyectoById() {
     const [data,setData]=useState({})
 
     const {proyecto}=useParams()
-    const {getProyectById}=useProyecto()
+    const {getProyectById,deleteProyectById}=useProyecto()
 
     useEffect(()=>{
         const getProyect= async ()=>{
@@ -28,6 +28,11 @@ function ProyectoById() {
         }
         getProyect()
     },[])
+
+    const deleteProyect=  async (id)=>{
+        await deleteProyectById(id)
+        console.log('aqui vamos eliminando todo')
+    }
   
     return (
         <div>
@@ -47,6 +52,7 @@ function ProyectoById() {
                                 <ButtonForm
                                     type='button'
                                     value='Eliminar'
+                                    callback={deleteProyect(proyecto)}
                                 />
                             </div>
                             <div 

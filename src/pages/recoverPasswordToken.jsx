@@ -2,10 +2,11 @@ import { useEffect,useState } from "react";
 import { useParams , Link} from "react-router-dom"
 
 import axios from "axios";
-
+//Alert components
 import Alert from "../components/alert.jsx";
 import AlertImage from "../components/alertImage.jsx";
 import ErrorNetwork from "../components/errorNetwork.jsx";
+
 import InputForm from "../components/inputForm";
 import ButtonForm from "../components/buttonForm";
 

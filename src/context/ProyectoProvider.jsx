@@ -4,7 +4,7 @@ import axios from "axios";
 const ProyectoContext=createContext()
 
 function ProyectoProvider({children}) {
-    const [alert,setAlert]=useState({msg:'',error:false})
+    const [alert,setAlert]=useState({msg:'',err:false})
     const [proyectos,setProyectos]=useState([])
     const [proyectoId,setProyectoId]=useState({})
 
@@ -24,8 +24,13 @@ function ProyectoProvider({children}) {
             try {
                 const {data} = await axios('http://localhost:4000/api/proyectos',config)
                 setProyectos(data)
+                setAlert({err:false})
             } catch (error) {
                 console.log(error)
+                setAlert({
+                    msg:error,
+                    err:true
+                })
             }
         }
         getProyectos()
@@ -102,6 +107,28 @@ function ProyectoProvider({children}) {
         }
     }
 
+    const deleteProyectById = async (id)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.delete(`http://localhost:4000/api/proyectos/${id}`,config)
+            console.log(data)
+            const newProyectosUpdate = proyectos.filter((proyecto) => (proyecto._id !== id ));
+            setProyectos(newProyectosUpdate)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <ProyectoContext.Provider
             value={{
@@ -112,7 +139,8 @@ function ProyectoProvider({children}) {
                 getProyectById,
                 proyectoId,
                 updateProyectById,
-                setProyectoId
+                setProyectoId,
+                deleteProyectById
             }}
         >
             {children}
