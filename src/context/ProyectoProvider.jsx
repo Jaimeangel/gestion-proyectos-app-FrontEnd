@@ -7,6 +7,7 @@ function ProyectoProvider({children}) {
     const [alert,setAlert]=useState({msg:'',err:false})
     const [proyectos,setProyectos]=useState([])
     const [proyectoId,setProyectoId]=useState({})
+    const [cargando,setCargando]=useState(true)
 
     useEffect(()=>{
         const getProyectos= async ()=>{
@@ -24,8 +25,10 @@ function ProyectoProvider({children}) {
             try {
                 const {data} = await axios('http://localhost:4000/api/proyectos',config)
                 setProyectos(data)
-                setAlert({err:false})
+                setAlert({msg:'',err:false})
+                setCargando(false)
             } catch (error) {
+                setCargando(false)
                 console.log(error)
                 setAlert({
                     msg:error,
@@ -61,6 +64,10 @@ function ProyectoProvider({children}) {
             setProyectos([...proyectos,data])
         } catch (error) {
             console.log(error)
+            setAlert({
+                msg:error,
+                err:true
+            })
         }
     }
 
@@ -83,6 +90,10 @@ function ProyectoProvider({children}) {
             return data
         } catch (error) {
             console.log(error)
+            setAlert({
+                msg:error,
+                err:true
+            })
         }
     }
 
@@ -104,6 +115,10 @@ function ProyectoProvider({children}) {
             setProyectos(newProyectosUpdate)
         } catch (error) {
             console.log(error)
+            setAlert({
+                msg:error,
+                err:true
+            })
         }
     }
 
@@ -126,6 +141,10 @@ function ProyectoProvider({children}) {
             setProyectos(newProyectosUpdate)
         } catch (error) {
             console.log(error)
+            setAlert({
+                msg:error,
+                err:true
+            })
         }
     }
 
@@ -140,7 +159,8 @@ function ProyectoProvider({children}) {
                 proyectoId,
                 updateProyectById,
                 setProyectoId,
-                deleteProyectById
+                deleteProyectById,
+                cargando
             }}
         >
             {children}
