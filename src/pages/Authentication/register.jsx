@@ -7,9 +7,9 @@ import leftArrow from '../assets/left-arrow-svgrepo-com.svg'
 import imageConfirm from '../assets/undraw_online_stats_0g94.svg'
 
 //Componentes
-import Alert from "../components/alert";
-import InputForm from "../components/inputForm";
-import ButtonForm from "../components/buttonForm";
+import Alert from "../../components/alert";
+import InputForm from "../../components/inputForm";
+import ButtonForm from "../../components/buttonForm";
 
 function Register() {
 

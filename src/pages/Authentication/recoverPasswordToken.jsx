@@ -3,12 +3,12 @@ import { useParams , Link} from "react-router-dom"
 
 import axios from "axios";
 //Alert components
-import Alert from "../components/alert.jsx";
-import AlertImage from "../components/alertImage.jsx";
-import ErrorNetwork from "../components/errorNetwork.jsx";
+import Alert from "../../components/alert.jsx";
+import AlertImage from "../../components/alertImage.jsx";
+import ErrorNetwork from "../../components/errorNetwork.jsx";
 
-import InputForm from "../components/inputForm";
-import ButtonForm from "../components/buttonForm";
+import InputForm from "../../components/inputForm.jsx";
+import ButtonForm from "../../components/buttonForm.jsx";
 
 import confirmedPasswordChange from '../assets/undraw_confirm_re_69me.svg'
 

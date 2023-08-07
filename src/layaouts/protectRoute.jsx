@@ -1,13 +1,14 @@
 import { useEffect,useState } from "react";
+
 import useAuth from "../hooks/useAuth";
-import MainLayaout from "./mainLayaout";
-import { Navigate } from "react-router-dom";
 
 //Alert components
 import AlertImage from "../components/alertImage.jsx";
 import ErrorNetwork from "../components/errorNetwork.jsx";
 
+//Components
 import Spinner from "../components/spinner";
+import MainLayaout from "./mainLayaout";
 
 function ProtectRoute() {
     //Hooks

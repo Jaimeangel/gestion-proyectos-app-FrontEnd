@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-import Alert from "../components/alert";
-import InputForm from "../components/inputForm";
-import ButtonForm from "../components/buttonForm";
+import Alert from "../../components/alert";
+import InputForm from "../../components/inputForm";
+import ButtonForm from "../../components/buttonForm";
 
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 function Login() {
 
