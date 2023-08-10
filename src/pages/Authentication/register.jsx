@@ -3,8 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 
 //Svgs
-import leftArrow from '../assets/left-arrow-svgrepo-com.svg'
-import imageConfirm from '../assets/undraw_online_stats_0g94.svg'
+import leftArrow from '../../assets/left-arrow-svgrepo-com.svg'
+import imageConfirm from '../../assets/undraw_online_stats_0g94.svg'
 
 //Componentes
 import Alert from "../../components/alert";

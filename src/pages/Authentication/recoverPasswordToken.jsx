@@ -10,7 +10,7 @@ import ErrorNetwork from "../../components/errorNetwork.jsx";
 import InputForm from "../../components/inputForm.jsx";
 import ButtonForm from "../../components/buttonForm.jsx";
 
-import confirmedPasswordChange from '../assets/undraw_confirm_re_69me.svg'
+import confirmedPasswordChange from '../../assets/undraw_confirm_re_69me.svg'
 
 function RecoverPasswordToken() {
   //Alerta

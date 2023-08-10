@@ -5,7 +5,7 @@ import axios from "axios";
 import AlertImage from "../../components/alertImage.jsx";
 import ErrorNetwork from "../../components/errorNetwork.jsx";
 import ButtonForm from "../../components/buttonForm.jsx";
-import pasoCompleto from '../assets/undraw_completed_03xt.svg'
+import pasoCompleto from '../../assets/undraw_completed_03xt.svg'
 
 
 function ConfirmationToken() {

@@ -6,11 +6,11 @@ import {RouterProvider,createBrowserRouter} from 'react-router-dom'
 
 //Autenticacion
 import Authenticate from './layaouts/authenticate.jsx'
-import Login from './pages/login.jsx'
-import Register from './pages/register'
-import RecoverPassword from './pages/recoverPassword'
-import RecoverPasswordToken from './pages/recoverPasswordToken'
-import ConfirmationToken from './pages/confirmationToken'
+import Login from './pages/Authentication/login.jsx'
+import Register from './pages/Authentication/register'
+import RecoverPassword from './pages/Authentication/recoverPassword'
+import RecoverPasswordToken from './pages/Authentication/recoverPasswordToken'
+import ConfirmationToken from './pages/Authentication/confirmationToken'
 
 //Proyectos
 import ProtectRoute from './layaouts/protectRoute'

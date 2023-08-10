@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios";
-import imageConfirm from '../assets/undraw_online_stats_0g94.svg'
+import imageConfirm from '../../assets/undraw_online_stats_0g94.svg'
 
 
 import Alert from "../../components/alert";
