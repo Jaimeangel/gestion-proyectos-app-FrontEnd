@@ -1,9 +1,9 @@
 import { useEffect,useState } from "react";
 
-function HandleStatus({data,alert,cargando,children}) {    
+function HandleStatus({data,err,cargando,children}) {    
     //Alerta
     const [errNet,setErrNet]=useState({msg:'',error:false})
-    const [alertImg,setAlertImg]=useState({msg:'',error:false})
+    const [errServer,setErrServer]=useState({msg:'',error:false})
         
     //Cargando
     const [load,setLoad]=useState(true)
@@ -12,7 +12,7 @@ function HandleStatus({data,alert,cargando,children}) {
     const [noContent,setNoContent]=useState(false)
     
     useEffect(()=>{
-        if(Object.keys(data).length !==0 || alert.err===true){
+        if(Object.keys(data).length !==0 || err.err===true){
             console.log('Dejamos de cargar')
             setLoad(false)
         }
@@ -22,26 +22,26 @@ function HandleStatus({data,alert,cargando,children}) {
             setLoad(false)
             setNoContent(true)
         }
-    },[alert,data])
+    },[err,data])
     
     useEffect(()=>{
-        if(alert.err){
-            if(!alert.msg.response){
+        if(err.err){
+            if(!err.msg.response){
                 setErrNet({
-                    msg:alert.msg.message,
+                    msg:err.msg.message,
                     error:true
                 })
             }else{
-                setAlertImg({
-                    msg:alert.msg.response?.data.msg,
+                setErrServer({
+                    msg:err.msg.response?.data.msg,
                     error:true
                 })
             }
         }
-    },[alert])
+    },[err])
 
 
-    return <>{children(load,alert,errNet,alertImg,noContent,data)}</>;
+    return <>{children(load,err,errNet,errServer,noContent,data)}</>;
 }
 
 export default HandleStatus;

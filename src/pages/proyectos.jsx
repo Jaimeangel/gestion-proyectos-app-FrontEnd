@@ -1,16 +1,16 @@
+import { Link } from "react-router-dom";
 //Hooks
 import useProyecto from "../hooks/useProyecto";
 //Componente
 import HandleStatus from "../components/handleStatus";
 import CardProyecto from "../components/cardProyecto";
+import ButtonForm from "../components/buttonForm.jsx";
 
-import { Link } from "react-router-dom";
 //Alert components
 import AlertImage from "../components/alertImage.jsx";
-import ErrorNetwork from "../components/errorNetwork.jsx";
+import Alerts from "../components/alerts";
 //Spinner
 import Spinner from "../components/spinner";
-import ButtonForm from "../components/buttonForm.jsx";
 //Imagenes
 import emptyImagen from '../assets/undraw_empty_re_opql.svg'
 
@@ -25,71 +25,58 @@ function Proyectos() {
       
       <HandleStatus
         data={proyectos}
-        alert={alert}
+        err={alert}
         cargando={cargando}
       >
         {
-          (load,alert,errNet,alertImg,noContent,data) => (
+          (load,err,errNet,errServer,noContent,data) => (
 
-            <div>
+            <>
                 {
                   load && <Spinner/>
                 }
-        
                 {
-                  alert.err===true &
-                  (
-                    <div  className="w-[30rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border">
-                      {alertImg.msg.length!==0 && <AlertImage msgError={alertImg.msg}/>}
-                      {errNet.msg.length!==0 && <ErrorNetwork msgError={errNet.msg}/>}
-                    </div>
-                  )
+                  err.err && <Alerts errServer={errServer} errNet={errNet}/>
                 }
-        
                 {
                   noContent 
                   ? 
-                    (
-                      <div className="w-full flex flex-col items-center">
-                        <img 
-                            src={emptyImagen} 
-                                  alt="imagen de confirmacion"
-                                  className="w-2/6" 
-                        />
-                        <div className="w-full flex flex-col items-center mt-5">
-                            <h1 className="font-bold italic text-3xl">{`No hay proyectos creados aún`}</h1>
-                        </div>
-                                          
-                        <div className="w-full flex flex-row justify-center gap-5">
-                                <Link
-                                  to={'/proyectos/crear-proyecto'}
-                                >
-                                  <ButtonForm
-                                      type='button' 
-                                      value='Crea un proyecto'
-                                      width='1/2'
-                                  />
-                                </Link>
-                        </div>
-                      </div>   
-                    )
-                  :
-                    (
-                      <div 
-                        className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
-                      >
-                        {
-                          data?.map( proyecto =>{
-                            return <CardProyecto
-                                proyecto={proyecto}
-                                key={proyecto._id}
-                            />
-                          })
-                        }
+                  (
+                    <AlertImage
+                      imgAlert={emptyImagen}
+                      width={'2/6'}
+                      msg={'No hay proyectos creados aún'}
+                    >
+                      <div className="w-full flex flex-row justify-center gap-5">
+                        <Link
+                          to={'/proyectos/crear-proyecto'}
+                        >
+                          <ButtonForm
+                              type='button' 
+                              value='Crea un proyecto'
+                              width='1/2'
+                          />
+                        </Link>
                       </div>
-                    )
+                    </AlertImage>
+                  )
+                  :
+                  (
+                    <div 
+                      className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
+                    >
+                      {
+                        data?.map( proyecto =>(
+                          <CardProyecto
+                            proyecto={proyecto}
+                            key={proyecto._id}
+                          />
+                        ))
+                      }
+                    </div>
+                  )
                 }
-            </div>
+            </>
           )
         }
 
