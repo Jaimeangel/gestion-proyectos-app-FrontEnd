@@ -21,12 +21,14 @@ function ProyectoProvider({children}) {
                 Authorization: `Bearer ${token}`
             }
         }
+
+
         try {
             const {data} = await axios('http://localhost:4000/api/proyectos',config)
             setProyectos(data)
         } catch (error) {
             console.log(error)
-            return error
+            throw new Error(error);
         }
     }
 
@@ -75,16 +77,12 @@ function ProyectoProvider({children}) {
             }
         }
 
-        try {
+        try{
             const {data}= await axios(`http://localhost:4000/api/proyectos/${id}`,config)
             setProyectoId(data)
-            return data
-        } catch (error) {
+        }catch(error) {
             console.log(error)
-            setAlert({
-                msg:error,
-                err:true
-            })
+            throw new Error(error.response.data.msg);
         }
     }
 

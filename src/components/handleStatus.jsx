@@ -22,9 +22,24 @@ function HandleStatus({data,err,cargando,children}) {
             setLoad(false)
             setNoContent(true)
         }
-    },[err,data])
+
+        if(err.err){
+            console.log(err)
+            if(err.msg.response){
+                setErrServer({
+                    msg:err.msg.response.data.msg,
+                    error:true
+                })
+            }else{
+                setErrNet({
+                    msg:err.msg.message,
+                    error:true
+                })
+            }
+        }
+    },[err,cargando])
     
-    useEffect(()=>{
+/*     useEffect(()=>{
         if(err.err){
             if(!err.msg.response){
                 setErrNet({
@@ -38,7 +53,7 @@ function HandleStatus({data,err,cargando,children}) {
                 })
             }
         }
-    },[err])
+    },[err]) */
 
 
     return <>{children(load,err,errNet,errServer,noContent,data)}</>;
