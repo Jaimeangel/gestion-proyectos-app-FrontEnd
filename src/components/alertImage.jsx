@@ -1,13 +1,17 @@
 import deniedAccees from '../assets/undraw_access_denied_re_awnf.svg'
 
-function AlertImage({msgError,imgAlert,msg,width,children}) {
+function AlertImage({msgError,imgAlert,msg,wdth,children}) {
   return (
     <div className="w-full flex flex-col  items-center">
+      <div className="w-full sm:w-1/2 flex justify-center">
         <img 
             src={imgAlert || deniedAccees} 
             alt="imagen de confirmacion"
-            className={`w-${width}`}
+            /* className="max-w-[16rem]"  */
+            className={`w-${wdth}`}
+            /* className='w-6/6' */
         />
+      </div>
       <div className="max-w-[22rem] sm:w-1/2 mt-5 flex flex-col items-center">
           <h1 className="font-bold italic text-3xl">Opps, algo salio mal</h1>
           <h1 className="font-bold italic text-2xl">{msg}</h1>

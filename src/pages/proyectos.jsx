@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 //Hooks
 import useProyecto from "../hooks/useProyecto";
 //Componente
@@ -15,8 +16,28 @@ import Spinner from "../components/spinner";
 import emptyImagen from '../assets/undraw_empty_re_opql.svg'
 
 
+
 function Proyectos() {
-  const {proyectos,alert,cargando}=useProyecto();
+  const {proyectos,getProyectos}=useProyecto();
+
+  const [errAlert,setErrAlert]=useState({msg:'',err:false})
+  const [loading,setLoading]=useState(true)
+
+  useEffect(()=>{
+    const proyectos= async ()=>{
+      try {
+        await getProyectos()
+        setLoading(false)
+      } catch (error) {
+        setErrAlert({
+          msg:error,
+          err:true
+        })
+        setLoading(false) 
+      }
+    }
+    proyectos()
+  })
 
   return (
     <div>
@@ -25,8 +46,8 @@ function Proyectos() {
       
       <HandleStatus
         data={proyectos}
-        err={alert}
-        cargando={cargando}
+        err={errAlert}
+        cargando={loading}
       >
         {
           (load,err,errNet,errServer,noContent,data) => (
@@ -39,12 +60,11 @@ function Proyectos() {
                   err.err && <Alerts errServer={errServer} errNet={errNet}/>
                 }
                 {
-                  noContent 
-                  ? 
+                  noContent &&
                   (
                     <AlertImage
                       imgAlert={emptyImagen}
-                      width={'2/6'}
+                      wdth='3/6'
                       msg={'No hay proyectos creados aún'}
                     >
                       <div className="w-full flex flex-row justify-center gap-5">
@@ -60,19 +80,21 @@ function Proyectos() {
                       </div>
                     </AlertImage>
                   )
-                  :
+                }
+                {
+                  !noContent && !load &&
                   (
                     <div 
-                      className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
-                    >
-                      {
-                        data?.map( proyecto =>(
-                          <CardProyecto
-                            proyecto={proyecto}
-                            key={proyecto._id}
-                          />
-                        ))
-                      }
+                                      className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
+                                    >
+                                      {
+                                        data?.map( proyecto =>(
+                                          <CardProyecto
+                                            proyecto={proyecto}
+                                            key={proyecto._id}
+                                          />
+                                        ))
+                                      }
                     </div>
                   )
                 }

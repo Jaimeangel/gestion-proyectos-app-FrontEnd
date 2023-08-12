@@ -9,35 +9,26 @@ function ProyectoProvider({children}) {
     const [proyectoId,setProyectoId]=useState({})
     const [cargando,setCargando]=useState(true)
 
-    useEffect(()=>{
-        const getProyectos= async ()=>{
-            
-            const token=localStorage.getItem('tks')
+    const getProyectos= async ()=>{
+        
+        const token=localStorage.getItem('tks')
 
-            if(!token) return
+        if(!token) return
 
-            const config={
-                headers:{
-                    'Content-Type':'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            try {
-                const {data} = await axios('http://localhost:4000/api/proyectos',config)
-                setProyectos(data)
-                setAlert({msg:'',err:false})
-                setCargando(false)
-            } catch (error) {
-                setCargando(false)
-                console.log(error)
-                setAlert({
-                    msg:error,
-                    err:true
-                })
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
             }
         }
-        getProyectos()
-    },[])
+        try {
+            const {data} = await axios('http://localhost:4000/api/proyectos',config)
+            setProyectos(data)
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    }
 
     const showAlert=(alerta)=>{
         setAlert(alerta)
@@ -160,7 +151,8 @@ function ProyectoProvider({children}) {
                 updateProyectById,
                 setProyectoId,
                 deleteProyectById,
-                cargando
+                cargando,
+                getProyectos
             }}
         >
             {children}
