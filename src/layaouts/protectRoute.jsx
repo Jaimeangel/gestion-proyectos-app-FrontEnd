@@ -38,10 +38,12 @@ function ProtectRoute() {
             })
             
           }else{
-              setAlertImg({
-                msg:alert.msg.response?.data.msg,
+            console.log('aqui')
+            console.log(alert.msg)
+            setAlertImg({
+                msg:alert.msg.message,
                 error:true
-              })
+            })
           }
         }
     },[alert])

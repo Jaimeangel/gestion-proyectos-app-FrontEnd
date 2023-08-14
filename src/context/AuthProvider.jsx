@@ -28,8 +28,11 @@ function AuthProvider({children}) {
             try {
                 const {data} = await axios('http://localhost:4000/api/usuarios/perfil',config)
                 setAuth(data)
-                setAlert({err:false})
-            } catch (error) {
+                setAlert({
+                    msg:'',
+                    err:false
+                })
+            }catch(error) {
                 console.log(error)
                 setAlert({
                     msg:error,
