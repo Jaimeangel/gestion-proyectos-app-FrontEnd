@@ -6,19 +6,17 @@ import useProyecto from "../hooks/useProyecto";
 import HandleStatus from "../components/handleStatus";
 import CardProyecto from "../components/cardProyecto";
 import ButtonForm from "../components/buttonForm.jsx";
-
-//Alert components
 import AlertImage from "../components/alertImage.jsx";
 import Alerts from "../components/alerts";
-//Spinner
 import Spinner from "../components/spinner";
-//Imagenes
+//Images
 import emptyImagen from '../assets/undraw_empty_re_opql.svg'
 
-
-
 function Proyectos() {
-  const {proyectos,getProyectos}=useProyecto();
+  const {
+    proyectos,
+    getProyectos
+  }=useProyecto();
 
   const [errAlert,setErrAlert]=useState({msg:'',err:false})
   const [loading,setLoading]=useState(true)
@@ -37,7 +35,7 @@ function Proyectos() {
       }
     }
     proyectos()
-  })
+  },[])
 
   return (
     <div>
@@ -85,16 +83,16 @@ function Proyectos() {
                   !noContent && !load &&
                   (
                     <div 
-                                      className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
-                                    >
-                                      {
-                                        data?.map( proyecto =>(
-                                          <CardProyecto
-                                            proyecto={proyecto}
-                                            key={proyecto._id}
-                                          />
-                                        ))
-                                      }
+                      className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
+                    >
+                      {
+                        data?.map( proyecto =>(
+                          <CardProyecto
+                            proyecto={proyecto}
+                            key={proyecto._id}
+                          />
+                        ))
+                      }
                     </div>
                   )
                 }
