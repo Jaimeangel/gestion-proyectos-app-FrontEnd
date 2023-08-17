@@ -7,9 +7,7 @@ function AlertImage({msgError,imgAlert,msg,wdth,children}) {
         <img 
             src={imgAlert || deniedAccees} 
             alt="imagen de confirmacion"
-            /* className="max-w-[16rem]"  */
             className={`w-${wdth}`}
-            /* className='w-6/6' */
         />
       </div>
       <div className="max-w-[22rem] sm:w-1/2 mt-5 flex flex-col items-center">

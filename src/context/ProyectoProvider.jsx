@@ -1,5 +1,6 @@
 import { createContext , useState, useEffect} from "react";
 import axios from "axios";
+import ValidateErrors from "../helpers/validateErrors";
 
 const ProyectoContext=createContext()
 
@@ -28,7 +29,8 @@ function ProyectoProvider({children}) {
             setProyectos(data)
         } catch (error) {
             console.log(error)
-            throw new Error(error);
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
         }
     }
 
@@ -81,8 +83,8 @@ function ProyectoProvider({children}) {
             const {data}= await axios(`http://localhost:4000/api/proyectos/${id}`,config)
             setProyectoId(data)
         }catch(error) {
-            console.log(error)
-            throw new Error(error.response.data.msg);
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
         }
     }
 

@@ -32,7 +32,7 @@ function ProyectoById() {
                 setLoading(false)
             }catch(error) {
                 setErrAlert({
-                    msg:error,
+                    msg:error.message,
                     err:true
                 })
                 setLoading(false) 
@@ -57,13 +57,13 @@ function ProyectoById() {
             cargando={loading}
         >
             {
-                (load,err,errNet,errServer,noContent,data) => (
+                (load,err,errNet,noContent,data) => (
                     <>
                         {
                             load && <Spinner/>
                         }
                         {
-                            err.err && <Alerts errServer={errServer} errNet={errNet}/>
+                           err.err && <Alerts errorThrow={errNet}/>
                         }
                         {
                             data && !load && !deleteById && !err.err &&

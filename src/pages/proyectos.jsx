@@ -28,7 +28,7 @@ function Proyectos() {
         setLoading(false)
       } catch (error) {
         setErrAlert({
-          msg:error,
+          msg:error.message,
           err:true
         })
         setLoading(false) 
@@ -48,14 +48,14 @@ function Proyectos() {
         cargando={loading}
       >
         {
-          (load,err,errNet,errServer,noContent,data) => (
+          (load,err,errNet,noContent,data) => (
 
             <>
                 {
                   load && <Spinner/>
                 }
                 {
-                  err.err && <Alerts errServer={errServer} errNet={errNet}/>
+                  err.err && <Alerts errorThrow={errNet}/>
                 }
                 {
                   noContent &&
@@ -83,7 +83,7 @@ function Proyectos() {
                   !noContent && !load &&
                   (
                     <div 
-                      className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-2 gap-7 px-7"
+                      className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-1 gap-7 px-7"
                     >
                       {
                         data?.map( proyecto =>(

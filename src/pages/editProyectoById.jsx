@@ -7,6 +7,7 @@ import useProyecto from "../hooks/useProyecto";
 import ButtonForm from "../components/buttonForm";
 import FormData from "../components/formData";
 import AlertImage from "../components/alertImage";
+import Alerts from "../components/alerts";
 //Img
 import doneImg from '../assets/undraw_done_re_oak4.svg'
 
@@ -14,6 +15,7 @@ import doneImg from '../assets/undraw_done_re_oak4.svg'
 function EditProyectoById() {
     const [edit,setEdit]=useState(false)
     const [dataEdit,setDataEdit]=useState({})
+    const [errAlert,setErrAlert]=useState({msg:'',err:false})
     
     const {proyecto}=useParams()
 
@@ -31,7 +33,10 @@ function EditProyectoById() {
                 try {
                     await getProyectById(proyecto)
                 } catch (error) {
-                    console.log(error)
+                    setErrAlert({
+                        msg:error.message,
+                        err:true
+                    })
                 }
             }
             getProyect()
@@ -76,50 +81,62 @@ function EditProyectoById() {
             <h1 className="text-3xl font-bold italic tracking-wide">Editar un proyecto</h1>
             <h3 className="text-xl font-normal">A continuacion encontraras el formulario para editar tus propios proyectos</h3>
 
-            <div className="w-[40rem] mx-auto bg-white flex flex-col items-center py-5 mt-5 rounded-lg shadow-md border">
-                {
-                    edit
-                        ?
-                        (
-                            <AlertImage
-                                imgAlert={doneImg}
-                                wdth='4/6'
-                                msg={'Su proyecto fue editado con exito'}
-                            >
-                                <div className="w-full flex flex-row justify-center gap-5">
-                                    <Link
-                                        to={'/proyectos'}
+            {
+                errAlert.err && <Alerts errorThrow={errAlert}/>
+            }
+            
+            {
+                !errAlert.err && 
+                (
+                    <div className="w-[40rem] mx-auto bg-white flex flex-col items-center py-5 mt-5 rounded-lg shadow-md border">
+                        {
+                            edit && !errAlert.err &&
+                            (
+                                <AlertImage
+                                        imgAlert={doneImg}
+                                        wdth='4/6'
+                                        msg={'Su proyecto fue editado con exito'}
                                     >
-                                        <ButtonForm
-                                            type='button' 
-                                            value='Ver proyectos'
-                                            width='1/2'
-                                        />
-                                    </Link>
-                                    <Link
-                                        to={`/proyectos/${proyecto}`}
-                                    >
-                                        <ButtonForm
-                                            type='button' 
-                                            value='Ver proyecto actual'
-                                            width='1/2'
-                                        />
-                                    </Link>
-                                </div>
-                            </AlertImage>
-                        ) 
-                        :
-                        (
-                            <FormData
-                                handlerForm={handleSubmitEditProyect}
-                                alert={alert}
-                                showAlert={showAlert}
-                                dataEdit={dataEdit}
-                                type='edit'
-                            />
-                        )
-                }
-            </div>
+                                        <div className="w-full flex flex-row justify-center gap-5">
+                                            <Link
+                                                to={'/proyectos'}
+                                            >
+                                                <ButtonForm
+                                                    type='button' 
+                                                    value='Ver proyectos'
+                                                    width='1/2'
+                                                />
+                                            </Link>
+                                            <Link
+                                                to={`/proyectos/${proyecto}`}
+                                            >
+                                                <ButtonForm
+                                                    type='button' 
+                                                    value='Ver proyecto actual'
+                                                    width='1/2'
+                                                />
+                                            </Link>
+                                        </div>
+                                </AlertImage>
+                            ) 
+        
+                        }
+                        {
+                            !edit && !errAlert.err &&
+                            (
+                                <FormData
+                                    handlerForm={handleSubmitEditProyect}
+                                    alert={alert}
+                                    showAlert={showAlert}
+                                    dataEdit={dataEdit}
+                                    type='edit'
+                                />
+                            )
+                        }
+                    </div>
+                )
+            }
+
         </div>
     )
 }
