@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+//Components
 import InputForm from "./inputForm";
 import Alert from "./alert";
 import ButtonForm from "./buttonForm";
+//Helpers
+import formatDate from "../helpers/formatDate";
 
-function FormData({handlerForm,alert,showAlert}) {  
+function FormData({handlerForm,alert,showAlert,dataEdit={},type}) {  
     const [nameProyecto,setNameProyecto]=useState('')
     const [date,setDate]=useState('')
     const [cliente,setCliente]=useState('')
@@ -34,6 +37,15 @@ function FormData({handlerForm,alert,showAlert}) {
             })
         }
     }
+
+    useEffect(()=>{
+        if(Object.keys(dataEdit).length !==0){
+            setNameProyecto(dataEdit.nombre)
+            setDate(formatDate(dataEdit.fechaEntrega))
+            setCliente(dataEdit.cliente)
+            setDescription(dataEdit.descripcion)
+        }
+    },[dataEdit])
 
     return (
         <form onSubmit={handleValidate} className="w-4/5">
@@ -66,7 +78,7 @@ function FormData({handlerForm,alert,showAlert}) {
             />
             <ButtonForm
                 type='submit' 
-                value='CREAR PROYECTO'
+                value={`${type === 'edit' ? 'Editar proyecto':'Crear proyecto'}`}
                 width='full'
             />
         </form>
