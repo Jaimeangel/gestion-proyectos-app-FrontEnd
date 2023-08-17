@@ -1,61 +1,41 @@
-import InputForm from "../components/inputForm";
-import ButtonForm from "../components/buttonForm";
-import Alert from "../components/alert";
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 //Hook
 import useProyecto from '../hooks/useProyecto'
-
+//Components
+import ButtonForm from "../components/buttonForm";
+import AlertImage from "../components/alertImage";
+import FormData from "../components/formData";
 //Img
 import doneImg from '../assets/undraw_done_re_oak4.svg'
 
-import AlertImage from "../components/alertImage";
-
 function CrearProyecto() {
-  //Data project
-  const [nameProyecto,setNameProyecto]=useState('')
-  const [date,setDate]=useState('')
-  const [cliente,setCliente]=useState('')
-  const [description,setDescription]=useState('')
-
-  //Alert
   const {
     alert,
     showAlert,
     submitProyect
   }=useProyecto()
-
-  //Msg 
+  
   const [submit,setSubmit]=useState(false)
 
-  const handleSubmit= async (e)=>{
-    e.preventDefault()
-
-    if([nameProyecto,date,cliente,description].includes('')){
+  const handleSubmitNewProyect= async (nombre,fecha,cliente,descrip)=>{
+    try {
+      await submitProyect(
+        {
+          nombre:nombre,
+          fechaEntrega:fecha,
+          cliente,
+          descripcion:descrip
+        }
+      )
+      setSubmit(true)
+    } catch (error) {
+      console.log(error)
       showAlert({
-        msg:'Todos los campos son obligatorios',
+        msg:error,
         error:true
       })
-      return
     }
-
-    await submitProyect(
-      {
-        nombre:nameProyecto,
-        fechaEntrega:date,
-        cliente,
-        descripcion:description
-      }
-    )
-
-    setNameProyecto('')
-    setDate('')
-    setCliente('')
-    setDescription('')
-
-    setSubmit(true)
 
   }
 
@@ -99,40 +79,11 @@ function CrearProyecto() {
             )
             :
             (
-              <form onSubmit={handleSubmit} className="w-4/5">
-                {alert.msg.length!==0 && <Alert alert={alert}/>}
-                <InputForm
-                  name='Nombre del proyecto'
-                  typeInput='text'
-                  callback={setNameProyecto}
-                  value={nameProyecto}
-                />
-                <InputForm
-                  name='Nombre del cliente'
-                  typeInput='text'
-                  callback={setCliente}
-                  value={cliente}
-                />
-                <div className='flex flex-col gap-1 items-left mt-3'>
-                  <label className='text-lg font-bold tracking-wider italic'>Descripcion del proyecto</label>
-                  <textarea
-                    value={description}
-                    onChange={(e)=>setDescription(e.target.value)}
-                    className="w-full outline-none bg-gray-50 cursor-pointer border rounded-xl px-6 py-2 border-black"
-                  ></textarea>
-                </div>
-                <InputForm
-                  name='Fecha de entrega'
-                  typeInput='date'
-                  callback={setDate}
-                  value={date}
-                />
-                <ButtonForm
-                  type='submit' 
-                  value='CREAR PROYECTO'
-                  width='full'
-                />
-              </form>
+              <FormData
+                handlerForm={handleSubmitNewProyect}
+                alert={alert}
+                showAlert={showAlert}
+              />
             )
         }
       </div>
