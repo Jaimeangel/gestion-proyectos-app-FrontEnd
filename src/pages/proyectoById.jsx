@@ -18,7 +18,9 @@ function ProyectoById() {
     const {
         getProyectById,
         deleteProyectById,
-        proyectoId
+        proyectoId,
+        showAlert,
+        alert
     }=useProyecto()
 
     const [errAlert,setErrAlert]=useState({msg:'',err:false})
@@ -46,7 +48,11 @@ function ProyectoById() {
             await deleteProyectById(proyecto) 
             setDeleteById(true)
         } catch (error) {
-            console.log(error)   
+            console.log(error)
+            showAlert({
+                msg:error.message,
+                error:true
+            })   
         }
     }
   
@@ -72,6 +78,7 @@ function ProyectoById() {
                                     url={proyecto}
                                     callbackDelete={deleteProyect}
                                     data={data}
+                                    alert={alert}
                                 />
                             )
                         }

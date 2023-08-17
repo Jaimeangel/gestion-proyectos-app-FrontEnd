@@ -32,7 +32,7 @@ function CrearProyecto() {
     } catch (error) {
       console.log(error)
       showAlert({
-        msg:error,
+        msg:error.message,
         error:true
       })
     }

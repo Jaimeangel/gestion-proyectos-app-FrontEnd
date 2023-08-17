@@ -59,10 +59,8 @@ function ProyectoProvider({children}) {
             setProyectos([...proyectos,data])
         } catch (error) {
             console.log(error)
-            setAlert({
-                msg:error,
-                err:true
-            })
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
         }
     }
 
@@ -83,6 +81,7 @@ function ProyectoProvider({children}) {
             const {data}= await axios(`http://localhost:4000/api/proyectos/${id}`,config)
             setProyectoId(data)
         }catch(error) {
+            console.log(error)
             const errMsg= ValidateErrors(error)
             throw new Error(errMsg);
         }
@@ -106,10 +105,8 @@ function ProyectoProvider({children}) {
             setProyectos(newProyectosUpdate)
         } catch (error) {
             console.log(error)
-            setAlert({
-                msg:error,
-                err:true
-            })
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
         }
     }
 
@@ -132,10 +129,8 @@ function ProyectoProvider({children}) {
             setProyectos(newProyectosUpdate)
         } catch (error) {
             console.log(error)
-            setAlert({
-                msg:error,
-                err:true
-            })
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
         }
     }
 
