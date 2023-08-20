@@ -1,11 +1,11 @@
 import { useState, createContext, useEffect } from "react"
-import { redirect } from "react-router-dom"
+import { redirect } from "react-router-dom";
+import ValidateErrors from "../helpers/validateErrors"
 import axios from 'axios'
 
 const AuthContext=createContext()
 
 function AuthProvider({children}) {
-
     const [alert,setAlert]=useState({msg:'',err:false})
     const [auth,setAuth]=useState('')
 
@@ -14,7 +14,17 @@ function AuthProvider({children}) {
             const token=localStorage.getItem('tks')
     
             if(!token){
-                console.log('aqui no hay token')
+                const errMsg= ValidateErrors("NO TOKEN")
+                setAlert({
+                    msg:errMsg,
+                    err:true
+                })
+
+                setTimeout(() => {
+                    console.log('aqui')
+                    return redirect("/")
+                }, 2000);
+
                 return
             }
 
@@ -33,9 +43,9 @@ function AuthProvider({children}) {
                     err:false
                 })
             }catch(error) {
-                console.log(error)
+                const errMsg= ValidateErrors(error)
                 setAlert({
-                    msg:error,
+                    msg:errMsg,
                     err:true
                 })
             }

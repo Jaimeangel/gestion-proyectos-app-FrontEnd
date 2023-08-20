@@ -2,13 +2,11 @@ import { useEffect,useState } from "react";
 
 import useAuth from "../hooks/useAuth";
 
-//Alert components
-import AlertImage from "../components/alertImage.jsx";
-import ErrorNetwork from "../components/errorNetwork.jsx";
-
 //Components
+import AlertImage from "../components/alertImage.jsx";
 import Spinner from "../components/spinner";
 import MainLayaout from "./mainLayaout";
+import Alerts from "../components/alerts";
 
 function ProtectRoute() {
     //Hooks
@@ -18,36 +16,23 @@ function ProtectRoute() {
     const [load,setLoad]=useState(true)
 
     //Alerta
-    const [errNet,setErrNet]=useState({msg:'',error:false})
-    const [alertImg,setAlertImg]=useState({msg:'',error:false})
+    const [alertAuth,setAlertAuth]=useState({msg:'',err:false})
 
     
     useEffect(()=>{
         if(Object.keys(auth).length !==0 || alert.err===true){
           setLoad(false)
         }
-    },[alert,auth])
 
-    useEffect(()=>{
         if(alert.err && Object.keys(auth).length ===0){
-          if(!alert.msg.response){
-            console.log(alert.msg)
-            setErrNet({
-                msg:alert.msg.message,
-                error:true
-            })
-            
-          }else{
-            console.log('aqui')
-            console.log(alert.msg)
-            setAlertImg({
-                msg:alert.msg.message,
-                error:true
-            })
-          }
+            if(alert.msg){
+                setAlertAuth({
+                    msg:alert.msg,
+                    err:true
+                })
+            }
         }
-    },[alert])
-
+    },[alert,auth])
 
     return (
         <div className="w-full">
@@ -55,21 +40,16 @@ function ProtectRoute() {
                 load 
                     ? 
                         (
-                            <div className="flex justify-center">
-                                <Spinner/>
-                            </div>
+                            <Spinner/>
                         )
                     :
                         (
-                            alert.err===true 
+                            alert.err
                                 ?
                                     (
-                                        <>
-                                            <div  className="w-[30rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border">
-                                                {alertImg.msg?.length!==0 && <AlertImage msgError={alertImg.msg}/>}
-                                                {errNet.msg?.length!==0 && <ErrorNetwork msgError={errNet.msg}/>}
-                                            </div>
-                                        </>
+                                        <Alerts
+                                            errorThrow={alertAuth}
+                                        />
                                     )
                                 :
                                     (
