@@ -44,7 +44,7 @@ function RecoverPassword() {
     }
 
     return (
-        <div className='w-[28rem] px-5 py-10 shadow-lg rounded-2xl'>
+        <div className='w-[28rem] px-5 py-10 shadow-lg rounded-2xl border'>
             {
                 end ? 
                 (

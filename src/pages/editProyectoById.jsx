@@ -78,7 +78,7 @@ function EditProyectoById() {
     
     return (
         <div>
-            <h1 className="text-3xl font-bold italic tracking-wide">Editar un proyecto</h1>
+            <h1 className="text-3xl font-bold italic tracking-wide">{`Editar proyecto: ${dataEdit.nombre}`}</h1>
             <h3 className="text-xl font-normal">A continuacion encontraras el formulario para editar tus propios proyectos</h3>
 
             {

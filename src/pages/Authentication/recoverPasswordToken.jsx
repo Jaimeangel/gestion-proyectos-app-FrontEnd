@@ -97,7 +97,7 @@ function RecoverPasswordToken() {
   }
 
   return (
-    <div className='w-[28rem] px-5 py-10 shadow-lg rounded-2xl'>
+    <div className='w-[28rem] px-5 py-10 shadow-lg rounded-2xl border'>
       {alertImg.msg.length!==0 && <AlertImage msgError={alertImg.msg}/>}
       {errNet.msg.length!==0 && <ErrorNetwork msgError={errNet.msg}/>}
 

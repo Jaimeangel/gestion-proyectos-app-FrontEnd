@@ -33,12 +33,9 @@ function Login() {
                 email,
                 password
             })
-            setAlert({
-                msg:'Ingreso exitoso',
-                error:false
-            })
             localStorage.setItem('tks',data.token)
             setAuth(data)
+            window.location.replace("http://localhost:5173/proyectos")
         }catch(error) {
             setAlert({
                 msg:error.response.data.msg,
@@ -50,7 +47,7 @@ function Login() {
     }
 
     return (
-        <div className='w-[28rem] px-5 py-10 shadow-lg rounded-2xl'>
+        <div className='w-[28rem] px-5 py-10 shadow-lg rounded-2xl border'>
             <div className='w-full'>
 
                 <h2 className='text-center font-bold text-2xl'>Acceder a su cuenta</h2>

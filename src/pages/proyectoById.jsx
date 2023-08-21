@@ -20,9 +20,13 @@ function ProyectoById() {
         deleteProyectById,
         proyectoId,
         showAlert,
-        alert
+        alert,
+        getTareasByProyect,
+        submitTarea,
+        tareas
     }=useProyecto()
 
+    const [alertFormTarea,setAlertFormTarea]=useState({msg:'',error:false})
     const [errAlert,setErrAlert]=useState({msg:'',err:false})
     const [loading,setLoading]=useState(true)
     const [deleteById,setDeleteById]=useState(false)
@@ -41,6 +45,21 @@ function ProyectoById() {
             }
         }
         proyectById()
+
+        const tareas= async ()=>{
+            try {
+              await getTareasByProyect(proyecto)
+              console.log('exito')
+            } catch (error) {
+              console.log(error)
+              setErrAlert({
+                msg:error.message,
+                err:true
+              })
+
+            }
+        }
+        tareas()
     },[])
 
     const deleteProyect= async ()=>{
@@ -53,6 +72,50 @@ function ProyectoById() {
                 msg:error.message,
                 error:true
             })   
+        }
+    }
+
+    const handleCreateTarea= async (data)=>{
+        const {
+            nameTarea,
+            description,
+            date,
+            prioridad
+        }=data;
+
+        if([nameTarea,description,date,prioridad].includes('')){
+            setAlertFormTarea(
+                {
+                    msg:'Todos los campos son obligatorios',
+                    error:true
+                }
+            )
+            setTimeout(() => {
+                setAlertFormTarea(
+                    {
+                        msg:''
+                    }
+                )
+            }, 2000);
+            return
+        }
+        
+        try {
+            const dataTarea={
+                nombre:nameTarea,
+                descripcion:description,
+                fechaEntrega:date,
+                prioridad,
+                proyecto:proyecto
+            }
+            await submitTarea(dataTarea)            
+        } catch (err) {
+            showAlert(
+                {
+                    msg:err.message,
+                    error:true
+                }
+            )
         }
     }
   
@@ -79,6 +142,8 @@ function ProyectoById() {
                                     callbackDelete={deleteProyect}
                                     data={data}
                                     alert={alert}
+                                    alertFormTarea={alertFormTarea}
+                                    callbackHandleCreateTarea={handleCreateTarea}
                                 />
                             )
                         }

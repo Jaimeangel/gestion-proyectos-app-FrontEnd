@@ -10,6 +10,8 @@ function ProyectoProvider({children}) {
     const [proyectoId,setProyectoId]=useState({})
     const [cargando,setCargando]=useState(true)
 
+    const [tareas,setTareas]=useState([])
+
     const getProyectos= async ()=>{
         
         const token=localStorage.getItem('tks')
@@ -134,6 +136,51 @@ function ProyectoProvider({children}) {
         }
     }
 
+    const submitTarea= async (dataTarea)=>{
+
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data} = await axios.post('http://localhost:4000/api/tareas',dataTarea,config)
+            setTareas([...tareas,data])
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
+    const getTareasByProyect= async (id)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data} = await axios.get(`http://localhost:4000/api/tareas/${id}`,config)
+            setTareas(data)
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
     return (
         <ProyectoContext.Provider
             value={{
@@ -147,7 +194,9 @@ function ProyectoProvider({children}) {
                 setProyectoId,
                 deleteProyectById,
                 cargando,
-                getProyectos
+                getProyectos,
+                submitTarea,
+                getTareasByProyect
             }}
         >
             {children}

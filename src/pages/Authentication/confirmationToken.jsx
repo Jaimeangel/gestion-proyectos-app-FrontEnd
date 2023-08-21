@@ -52,7 +52,7 @@ function ConfirmationToken() {
     },[])
 
     return (
-        <div className='w-[48rem] px-5 py-10 shadow-lg rounded-2xl flex justify-center'>
+        <div className='w-[48rem] px-5 py-10 shadow-lg rounded-2xl flex justify-center border'>
                 {alert.msg.length!==0 && <AlertImage msgError={alert.msg}/>}
 
                 {errNet.msg.length!==0 && <ErrorNetwork msgError={errNet.msg}/>}
