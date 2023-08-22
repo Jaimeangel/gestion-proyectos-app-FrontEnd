@@ -3,11 +3,12 @@ import { Link } from "react-router-dom"
 import ButtonForm from "./buttonForm"
 import Alert from "./alert"
 import ModalTareas from "./modalTareas"
+import CardTarea from "./cardTarea"
 //Helpers
 import formatDate from "../helpers/formatDate"
 
 
-function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleCreateTarea}) {
+function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleCreateTarea,tareas}) {
     
     return (
         <div className="w-full px-7">
@@ -54,11 +55,18 @@ function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleC
                         handleForm={callbackHandleCreateTarea}
                     />
                 </div>
+                <h1 className="text-3xl font-bold italic mt-5">Tareas del proyecto</h1>
                 <div 
-                    className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border px-7"
-                >   
-                    <h1 className="text-3xl font-bold italic">Tareas del proyecto</h1>
-                    
+                    className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-1 px-7 gap-4"
+                >
+                    {
+                        tareas?.map( tarea =>(
+                            <CardTarea
+                                tarea={tarea}
+                                key={tarea._id}
+                            />
+                        ))
+                    }   
                 </div>
             </div>
         </div>

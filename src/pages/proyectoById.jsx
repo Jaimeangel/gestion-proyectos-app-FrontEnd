@@ -144,6 +144,7 @@ function ProyectoById() {
                                     alert={alert}
                                     alertFormTarea={alertFormTarea}
                                     callbackHandleCreateTarea={handleCreateTarea}
+                                    tareas={tareas}
                                 />
                             )
                         }

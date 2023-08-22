@@ -4,7 +4,7 @@ import InputForm from "./inputForm"
 import ButtonForm from "./buttonForm"
 import Alert from "./alert"
 
-const PRIORIDADES=["baja","media","alta"]
+const PRIORIDADES=["Baja","Media","Alta"]
 
 function FormTarea({type,alert,handleForm,close}) {
     //Data

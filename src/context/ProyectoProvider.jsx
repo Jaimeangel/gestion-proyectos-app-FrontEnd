@@ -196,7 +196,8 @@ function ProyectoProvider({children}) {
                 cargando,
                 getProyectos,
                 submitTarea,
-                getTareasByProyect
+                getTareasByProyect,
+                tareas
             }}
         >
             {children}
