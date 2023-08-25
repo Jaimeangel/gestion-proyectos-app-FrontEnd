@@ -9,16 +9,16 @@ function CardTarea({tarea}){
 
     const {deleteTareaById,updateTareaById}=useProyecto()
 
-    const [alert,setAlert]=useState({msg:'',err:false})
+    const [alert,setAlert]=useState({msg:'',error:false})
 
     const deleteTarea= async ()=>{
         try {
             await deleteTareaById(tarea._id)
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            console.log(err.message)
             setAlert({
-                msg:error.message,
-                err:true
+                msg:err.message,
+                error:true
             })   
         }
     }

@@ -11,6 +11,7 @@ function ValidateErrors(errorCode) {
 
     const errors={
         404: errorCode?.response?.data?.msg || "Parece que hubo un problema con la solicitud que enviaste",
+        403:errorCode?.response?.data?.msg || " ¡Algo salió mal en nuestro lado! Estamos trabajando para solucionarlo",
         401: errorCode?.response?.data?.msg || "Lo siento, pero parece que no tienes permisos para acceder a esta página",
         404: errorCode?.response?.data?.msg || "Parece que la página que estás buscando no se encuentra por aquí",
         501: errorCode?.response?.data?.msg || " ¡Algo salió mal en nuestro lado! Estamos experimentando dificultades técnicas, intentelo mas tarde",
