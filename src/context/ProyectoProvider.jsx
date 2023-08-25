@@ -160,6 +160,7 @@ function ProyectoProvider({children}) {
     }
 
     const getTareasByProyect= async (id)=>{
+        setTareas([])
         const token=localStorage.getItem('tks')
 
         if(!token) return
@@ -174,6 +175,30 @@ function ProyectoProvider({children}) {
         try {
             const {data} = await axios.get(`http://localhost:4000/api/tareas/${id}`,config)
             setTareas(data)
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
+    const deleteTareaById= async (id)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.delete(`http://localhost:4000/api/tareas/${id}`,config)
+            console.log(data)
+            const newTareasUpdate = tareas.filter((tarea) => (tarea._id !== id ));
+            setTareas(newTareasUpdate)
         } catch (error) {
             console.log(error)
             const errMsg= ValidateErrors(error)
@@ -197,7 +222,8 @@ function ProyectoProvider({children}) {
                 getProyectos,
                 submitTarea,
                 getTareasByProyect,
-                tareas
+                tareas,
+                deleteTareaById
             }}
         >
             {children}
