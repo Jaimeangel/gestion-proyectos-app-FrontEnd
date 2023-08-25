@@ -1,12 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 //Components
 import InputForm from "./inputForm"
 import ButtonForm from "./buttonForm"
 import Alert from "./alert"
+//Helpers
+import formatDate from "../helpers/formatDate"
 
 const PRIORIDADES=["Baja","Media","Alta"]
 
-function FormTarea({type,alert,handleForm,close}) {
+function FormTarea({type,alert,handleForm,close,data={}}) {
     //Data
     const [nameTarea,setNameTarea]=useState('')
     const [description,setDescription]=useState('')
@@ -17,7 +19,16 @@ function FormTarea({type,alert,handleForm,close}) {
         e.preventDefault()
         handleForm({nameTarea,description,date,prioridad})
         close()
-    }
+    } 
+
+    useEffect(()=>{
+        if(Object.keys(data).length !== 0){
+            setNameTarea(data.nombre)
+            setDescription(data.descripcion)
+            setDate(formatDate(data.fechaEntrega))
+            setPrioridad(data.prioridad)
+        }
+    },[])
 
     return (
         <form onSubmit={handler} className="w-5/5">

@@ -206,6 +206,29 @@ function ProyectoProvider({children}) {
         }
     }
 
+    const updateTareaById= async (dataUpdate,id)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.put(`http://localhost:4000/api/tareas/${id}`,dataUpdate,config)
+            const newTareasUpdate = tareas.map((tarea) => (tarea._id === data._id ? data : tarea));
+            setTareas(newTareasUpdate)
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
     return (
         <ProyectoContext.Provider
             value={{
@@ -223,7 +246,8 @@ function ProyectoProvider({children}) {
                 submitTarea,
                 getTareasByProyect,
                 tareas,
-                deleteTareaById
+                deleteTareaById,
+                updateTareaById
             }}
         >
             {children}

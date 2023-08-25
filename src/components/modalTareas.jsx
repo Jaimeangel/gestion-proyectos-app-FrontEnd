@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import ButtonForm from './buttonForm'
 import FormTarea from './formTarea'
 
-function ModalTareas({value,alert,handleForm}) {
+function ModalTareas({value,alert,handleForm,data,type,color}) {
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -21,6 +21,7 @@ function ModalTareas({value,alert,handleForm}) {
             type='button'
             value={value}
             callback={openModal}
+            color={color}
         />
 
         <Transition appear show={isOpen} as={Fragment}>
@@ -60,10 +61,11 @@ function ModalTareas({value,alert,handleForm}) {
                                 </div>
                                 <div className="mt-2">
                                     <FormTarea
-                                        type='create'
+                                        type={type}
                                         alert={alert}
                                         handleForm={handleForm}
                                         close={closeModal}
+                                        data={data}
                                     />
                                 </div>
                             </Dialog.Panel>
