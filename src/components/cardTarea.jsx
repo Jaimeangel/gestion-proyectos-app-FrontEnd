@@ -4,6 +4,8 @@ import useProyecto from "../hooks/useProyecto";
 import { useState } from "react";
 import ModalTareas from "./modalTareas";
 import Alert from "./alert";
+import ModalDeleteTarea from "./modalDeleteTarea";
+
 
 function CardTarea({tarea}){
 
@@ -83,11 +85,10 @@ function CardTarea({tarea}){
                     type='edit'
                     color='bg-lime-400'
                 />
-                <ButtonForm
-                    type='button'
+                <ModalDeleteTarea
                     value='Eliminar'
                     color='bg-red-500'
-                    callback={deleteTarea}
+                    callDelete={deleteTarea}
                 />
                 <ButtonForm
                     type='button'
