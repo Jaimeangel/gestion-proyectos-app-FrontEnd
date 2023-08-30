@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link ,useParams} from "react-router-dom"
 //Components
 import ButtonForm from "./buttonForm"
 import Alert from "./alert"
@@ -9,6 +9,8 @@ import formatDate from "../helpers/formatDate"
 
 
 function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleCreateTarea,tareas}) {
+
+    const {proyecto}=useParams()
     
     return (
         <div className="w-full px-7">
@@ -31,6 +33,14 @@ function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleC
                         callback={callbackDelete}
                         color='bg-red-500'
                     />
+                    <Link
+                        to={`/colaboradores/${proyecto}`}
+                    >
+                        <ButtonForm
+                            type='button'
+                            value='Colaboradores'
+                        />
+                    </Link>
                 </div>
                 <div 
                     className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border px-7"

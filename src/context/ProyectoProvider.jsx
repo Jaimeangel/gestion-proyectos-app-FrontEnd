@@ -227,8 +227,30 @@ function ProyectoProvider({children}) {
             const errMsg= ValidateErrors(error)
             throw new Error(errMsg);
         }
-    }
 
+    }
+    
+    const getColaborador= async (proyecto,dataEmail)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.post(`http://localhost:4000/api/proyectos/${proyecto}/colaboradores`,dataEmail,config)
+            return data
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
     return (
         <ProyectoContext.Provider
             value={{
@@ -247,7 +269,8 @@ function ProyectoProvider({children}) {
                 getTareasByProyect,
                 tareas,
                 deleteTareaById,
-                updateTareaById
+                updateTareaById,
+                getColaborador
             }}
         >
             {children}

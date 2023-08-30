@@ -19,6 +19,9 @@ import CrearProyecto from './pages/crearProyecto'
 import ProyectoById from './pages/proyectoById'
 import EditProyectoById from './pages/editProyectoById'
 
+//Colaboradores
+import Colaboradores from './pages/colaboradores'
+
 //Contexts
 import AuthProvider from './context/AuthProvider'
 import ProyectoProvider from './context/ProyectoProvider'
@@ -70,6 +73,20 @@ const router=createBrowserRouter([
         path:'edit/:proyecto',
         element:<EditProyectoById/>
       }
+    ]
+  },
+  {
+    path:'/colaboradores',
+    element:<ProtectRoute/>,
+    children:[
+      {
+        index:true,
+        element:<Proyectos/>
+      },
+      {
+        path:':proyecto',
+        element:<Colaboradores/>
+      },
     ]
   }
 ])
