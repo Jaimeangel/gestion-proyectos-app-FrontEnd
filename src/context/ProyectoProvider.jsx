@@ -243,7 +243,29 @@ function ProyectoProvider({children}) {
         }
 
         try {
-            const {data}= await axios.post(`http://localhost:4000/api/proyectos/${proyecto}/colaboradores`,dataEmail,config)
+            const {data}= await axios.post(`http://localhost:4000/api/proyectos/check-colaboradores/${proyecto}`,dataEmail,config)
+            return data
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
+    const addColaborador = async (proyecto,dataColaborador)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.post(`http://localhost:4000/api/proyectos/colaboradores/${proyecto}`,dataColaborador,config)
             return data
         } catch (error) {
             console.log(error)
@@ -270,7 +292,8 @@ function ProyectoProvider({children}) {
                 tareas,
                 deleteTareaById,
                 updateTareaById,
-                getColaborador
+                getColaborador,
+                addColaborador
             }}
         >
             {children}

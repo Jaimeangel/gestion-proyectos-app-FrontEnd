@@ -3,15 +3,22 @@ import { useParams} from "react-router-dom";
 
 import InputForm from "../components/inputForm";
 import ButtonForm from "../components/buttonForm";
+import Alert from "../components/alert";
 
 import useProyecto from "../hooks/useProyecto";
 
 function Colaboradores() {
     const {proyecto}=useParams()
-    const {proyectoId,getProyectById,getColaborador}=useProyecto()
+    const {
+        proyectoId,
+        getProyectById,
+        getColaborador,
+        addColaborador
+    }=useProyecto()
 
     const [email,setEmail]=useState('')
     const [colaborador,setColaborador]=useState({})
+    const [alert,setAlert]=useState({msg:'',error:false})
 
     useEffect(()=>{
         if(Object.keys(proyectoId).length ===0){
@@ -37,10 +44,26 @@ function Colaboradores() {
         try {
             const data= await getColaborador(proyecto,{email})
             setColaborador(data)
+            if(data===null){
+                setAlert({
+                    msg:'El usuario no fue encontrado o no existe',
+                    error:true
+                })
+                setTimeout(() => {
+                    setAlert({
+                        msg:'',
+                        error:true
+                    })
+                }, 2000);
+            }
         } catch (error) {
             console.log(error)
         }
-        
+    }
+
+    const addColaboradorSubmit= async ()=>{
+        const data = await addColaborador(proyecto,{colaborador})
+        console.log(data)
     }
 
     return (
@@ -50,6 +73,7 @@ function Colaboradores() {
                 className="w-[30rem] mx-auto px-5 pt-5 pb-8 mt-5 rounded-lg shadow-md border"
                 onSubmit={handleSubmit}
             >
+                {alert.msg.length!==0 && <Alert alert={alert}/>}
                 <InputForm
                     name='Correo colaborador'
                     typeInput='email'
@@ -63,7 +87,7 @@ function Colaboradores() {
                 />
             </form>
             
-            { Object.keys(colaborador).length!==0 &&
+            { colaborador && Object.keys(colaborador)?.length !==0 &&
                 (
                     <div
                         className="w-[30rem] flex flex-row items-center justify-between mx-auto px-5 pt-5 pb-8 mt-5 rounded-lg shadow-md border"
@@ -72,6 +96,7 @@ function Colaboradores() {
                         <ButtonForm
                             value='Agregar'
                             type='button'
+                            callback={addColaboradorSubmit}
                         />
                     </div>
 
