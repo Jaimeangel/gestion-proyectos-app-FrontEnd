@@ -56,14 +56,50 @@ function Colaboradores() {
                     })
                 }, 2000);
             }
-        } catch (error) {
-            console.log(error)
+        }catch(err) {
+            console.log(err)
+            setAlert({
+                msg:err.message,
+                error:true
+            })
+            setTimeout(() => {
+                setAlert({
+                    msg:'',
+                    error:true
+                })
+            }, 2000);
         }
     }
 
     const addColaboradorSubmit= async ()=>{
-        const data = await addColaborador(proyecto,{colaborador})
-        console.log(data)
+        try {
+            const data = await addColaborador(proyecto,{emailColaborador:colaborador.email})
+            setAlert({
+                msg:data.msg,
+                error:false
+            })
+            setTimeout(() => {
+                setAlert({
+                    msg:'',
+                    error:false
+                })
+            }, 2500);
+            setTimeout(() => {
+                setColaborador({})
+            }, 2000);
+        } catch (err) {
+            console.log(err)
+            setAlert({
+                msg:err.message,
+                error:true
+            })
+            setTimeout(() => {
+                setAlert({
+                    msg:'',
+                    error:true
+                })
+            }, 2500);
+        }
     }
 
     return (
@@ -73,7 +109,7 @@ function Colaboradores() {
                 className="w-[30rem] mx-auto px-5 pt-5 pb-8 mt-5 rounded-lg shadow-md border"
                 onSubmit={handleSubmit}
             >
-                {alert.msg.length!==0 && <Alert alert={alert}/>}
+                {alert.msg?.length!==0 && <Alert alert={alert}/>}
                 <InputForm
                     name='Correo colaborador'
                     typeInput='email'
