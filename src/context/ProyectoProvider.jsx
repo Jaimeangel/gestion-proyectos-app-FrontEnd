@@ -11,6 +11,7 @@ function ProyectoProvider({children}) {
     const [cargando,setCargando]=useState(true)
 
     const [tareas,setTareas]=useState([])
+    const [colaboradoresByProyecto,setColaboradoresByProyecto]=useState([])
 
     const getProyectos= async ()=>{
         
@@ -266,7 +267,30 @@ function ProyectoProvider({children}) {
 
         try {
             const {data}= await axios.post(`http://localhost:4000/api/proyectos/colaboradores/${proyecto}`,dataColaborador,config)
-            return data
+            setColaboradoresByProyecto([...colaboradoresByProyecto,data])
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
+    const getColaboradorByProyecto= async (proyecto)=>{
+        setColaboradoresByProyecto([])
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.get(`http://localhost:4000/api/proyectos/colaboradores/${proyecto}`,config)
+            setColaboradoresByProyecto(data)
         } catch (error) {
             console.log(error)
             const errMsg= ValidateErrors(error)
@@ -293,7 +317,9 @@ function ProyectoProvider({children}) {
                 deleteTareaById,
                 updateTareaById,
                 getColaborador,
-                addColaborador
+                addColaborador,
+                getColaboradorByProyecto,
+                colaboradoresByProyecto
             }}
         >
             {children}
