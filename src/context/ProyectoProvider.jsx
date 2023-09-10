@@ -207,7 +207,7 @@ function ProyectoProvider({children}) {
         }
     }
 
-    const updateTareaById= async (dataUpdate,id)=>{
+    const updateTareaById = async (dataUpdate,id)=>{
         const token=localStorage.getItem('tks')
 
         if(!token) return
@@ -231,7 +231,7 @@ function ProyectoProvider({children}) {
 
     }
     
-    const getColaborador= async (proyecto,dataEmail)=>{
+    const getColaborador = async (proyecto,dataEmail)=>{
         const token=localStorage.getItem('tks')
 
         if(!token) return
@@ -275,7 +275,7 @@ function ProyectoProvider({children}) {
         }
     }
 
-    const getColaboradorByProyecto= async (proyecto)=>{
+    const getColaboradorByProyecto = async (proyecto)=>{
         setColaboradoresByProyecto([])
         const token=localStorage.getItem('tks')
 
@@ -297,6 +297,30 @@ function ProyectoProvider({children}) {
             throw new Error(errMsg);
         }
     }
+
+    const deleteColaborador = async (proyecto,id)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data}= await axios.delete(`http://localhost:4000/api/proyectos/colaboradores/${proyecto}/${id}`,config)
+            const newColaboradoresUpdate = colaboradoresByProyecto.filter((colaborador) => (colaborador.id !== id ));
+            setColaboradoresByProyecto(newColaboradoresUpdate)
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
     return (
         <ProyectoContext.Provider
             value={{
@@ -319,7 +343,8 @@ function ProyectoProvider({children}) {
                 getColaborador,
                 addColaborador,
                 getColaboradorByProyecto,
-                colaboradoresByProyecto
+                colaboradoresByProyecto,
+                deleteColaborador
             }}
         >
             {children}

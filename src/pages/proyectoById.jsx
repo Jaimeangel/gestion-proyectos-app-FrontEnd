@@ -161,9 +161,9 @@ function ProyectoById() {
                                             to={'/proyectos'}
                                         >
                                             <ButtonForm
-                                            type='button' 
-                                            value='Ver proyectos'
-                                            width='1/2'
+                                                type='button' 
+                                                value='Ver proyectos'
+                                                width='1/2'
                                             />
                                         </Link>
                                     </div>
