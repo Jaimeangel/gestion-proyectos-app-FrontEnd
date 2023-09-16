@@ -2,6 +2,7 @@ import { useState ,useEffect} from "react";
 import { useParams, Link } from "react-router-dom";
 //Hooks
 import useProyecto from '../hooks/useProyecto'
+import useAdmin from "../hooks/useAdmin";
 //Componenents
 import ButtonForm from '../components/buttonForm'
 import Spinner from '../components/spinner'
@@ -26,6 +27,11 @@ function ProyectoById() {
         tareas
     }=useProyecto()
 
+    const isAdmin=useAdmin()
+
+
+    console.log(isAdmin)
+
     const [alertFormTarea,setAlertFormTarea]=useState({msg:'',error:false})
     const [errAlert,setErrAlert]=useState({msg:'',err:false})
     const [loading,setLoading]=useState(true)
@@ -49,7 +55,6 @@ function ProyectoById() {
         const tareas= async ()=>{
             try {
               await getTareasByProyect(proyecto)
-              console.log('exito')
             } catch (error) {
               console.log(error)
               setErrAlert({
@@ -60,6 +65,7 @@ function ProyectoById() {
             }
         }
         tareas()
+
     },[])
 
     const deleteProyect= async ()=>{
@@ -118,6 +124,7 @@ function ProyectoById() {
             )
         }
     }
+
   
     return (
         <HandleStatus
@@ -145,6 +152,7 @@ function ProyectoById() {
                                     alertFormTarea={alertFormTarea}
                                     callbackHandleCreateTarea={handleCreateTarea}
                                     tareas={tareas}
+                                    isAdmin={isAdmin}
                                 />
                             )
                         }

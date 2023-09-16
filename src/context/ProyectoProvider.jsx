@@ -68,6 +68,7 @@ function ProyectoProvider({children}) {
     }
 
     const getProyectById= async (id)=>{
+        setProyectoId({})
         
         const token=localStorage.getItem('tks')
 

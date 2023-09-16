@@ -6,8 +6,12 @@ import ModalTareas from "./modalTareas";
 import Alert from "./alert";
 import ModalDeleteTarea from "./modalDeleteTarea";
 
+import useAdmin from "../hooks/useAdmin";
+
 
 function CardTarea({tarea}){
+
+    const isAdmin=useAdmin()
 
     const {deleteTareaById,updateTareaById}=useProyecto()
 
@@ -77,19 +81,25 @@ function CardTarea({tarea}){
                 <p className="text-lg font-semibold">{`Prioridad: ${tarea.prioridad}`}</p>
             </div>
             <div className="w-5/12 flex flex-row justify-center items-start gap-2">
-                <ModalTareas
-                    value='Editar'
-                    alert={alert}
-                    handleForm={handlerEditTarea}
-                    data={tarea}
-                    type='edit'
-                    color='bg-lime-400'
-                />
-                <ModalDeleteTarea
-                    value='Eliminar'
-                    color='bg-red-500'
-                    callDelete={deleteTarea}
-                />
+                {
+                    isAdmin && (
+                        <>
+                            <ModalTareas
+                                value='Editar'
+                                alert={alert}
+                                handleForm={handlerEditTarea}
+                                data={tarea}
+                                type='edit'
+                                color='bg-lime-400'
+                            />
+                            <ModalDeleteTarea
+                                value='Eliminar'
+                                color='bg-red-500'
+                                callDelete={deleteTarea}
+                            />
+                        </>
+                    )
+                }
                 <ButtonForm
                     type='button'
                     value='Completar'

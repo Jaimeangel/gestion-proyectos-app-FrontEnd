@@ -1,12 +1,10 @@
 import { useState, createContext, useEffect } from "react"
-import { redirect ,useNavigate} from "react-router-dom";
 import ValidateErrors from "../helpers/validateErrors"
 import axios from 'axios'
 
 const AuthContext=createContext()
 
 function AuthProvider({children}) {
-    /* const navigate=useNavigate() */
     const [alert,setAlert]=useState({msg:'',err:false})
     const [auth,setAuth]=useState('')
 

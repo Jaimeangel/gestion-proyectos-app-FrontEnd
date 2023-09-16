@@ -3,9 +3,10 @@ import { useEffect,useState } from "react";
 import { useParams} from "react-router-dom";
 import ModalCreateColaborador from "../components/modalCreateColaborador";
 import CardColaborador from '../components/cardColaborador'
-
+import useAdmin from "../hooks/useAdmin";
 function Colaboradores() {
     const {proyecto}=useParams()
+    const isAdmin=useAdmin()
     const {
         proyectoId,
         getProyectById,
@@ -54,9 +55,14 @@ function Colaboradores() {
         <div className="w-full flex flex-col">
             <h1 className="text-3xl font-bold italic mt-5">{`Colaboradores proyecto: ${proyectoId.nombre}`}</h1>
             <div>
-                <ModalCreateColaborador
-                    value={'Agregar nuevo colaborador'}
-                />
+                {
+                    isAdmin && (
+                        <ModalCreateColaborador
+                            value={'Agregar nuevo colaborador'}
+                        />
+                    )
+                }
+
                 <div
                     className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-1 gap-7 px-7"
                 >

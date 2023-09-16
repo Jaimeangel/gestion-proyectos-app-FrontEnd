@@ -6,11 +6,14 @@ import ModalTareas from "./modalTareas"
 import CardTarea from "./cardTarea"
 //Helpers
 import formatDate from "../helpers/formatDate"
+//Hooks
+import useAdmin from "../hooks/useAdmin"
 
 
 function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleCreateTarea,tareas}) {
 
     const {proyecto}=useParams()
+    const isAdmin=useAdmin()
     
     return (
         <div className="w-full px-7">
@@ -18,21 +21,29 @@ function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleC
 
             <div>
                 <div className="flex flex-row gap-5">
-                    <Link
-                        to={`/proyectos/edit/${url}`}
-                    >
-                        <ButtonForm
-                            type='button'
-                            value='Editar'
-                            color='bg-lime-400'
-                        />
-                    </Link>
-                    <ButtonForm
-                        type='button'
-                        value='Eliminar'
-                        callback={callbackDelete}
-                        color='bg-red-500'
-                    />
+                    {
+                        isAdmin && (
+                            <>
+                                <Link
+                                    to={`/proyectos/edit/${url}`}
+                                >
+                                    <ButtonForm
+                                        type='button'
+                                        value='Editar'
+                                        color='bg-lime-400'
+                                    />
+                                </Link>
+                                <ButtonForm
+                                    type='button'
+                                    value='Eliminar'
+                                    callback={callbackDelete}
+                                    color='bg-red-500'
+                                />
+                            </>
+                            
+                        )
+                    }
+
                     <Link
                         to={`/colaboradores/${proyecto}`}
                     >
@@ -58,13 +69,17 @@ function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleC
             </div>
             
             <div>
-                <div className="flex flex-row gap-5">
-                    <ModalTareas
-                        value={'Agregar nueva tarea'}
-                        alert={alertFormTarea}
-                        handleForm={callbackHandleCreateTarea}
-                    />
-                </div>
+                {
+                    isAdmin && (
+                        <div className="flex flex-row gap-5">
+                            <ModalTareas
+                                value={'Agregar nueva tarea'}
+                                alert={alertFormTarea}
+                                handleForm={callbackHandleCreateTarea}
+                            />
+                        </div>
+                    )
+                }
                 <h1 className="text-3xl font-bold italic mt-5">Tareas del proyecto</h1>
                 <div 
                     className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-1 px-7 gap-4"
