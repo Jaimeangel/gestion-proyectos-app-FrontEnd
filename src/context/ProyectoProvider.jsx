@@ -322,6 +322,29 @@ function ProyectoProvider({children}) {
         }
     }
 
+    const changeStateTarea = async (id)=>{
+        const token=localStorage.getItem('tks')
+
+        if(!token) return
+
+        const config={
+            headers:{
+                'Content-Type':'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data} = await axios.post(`http://localhost:4000/api/tareas/estado/${id}`,{},config)
+            const newTareasUpdate = tareas.map((tarea) => (tarea._id === id ? data : tarea));
+            setTareas(newTareasUpdate)
+        } catch (error) {
+            console.log(error)
+            const errMsg= ValidateErrors(error)
+            throw new Error(errMsg);
+        }
+    }
+
     return (
         <ProyectoContext.Provider
             value={{
@@ -345,7 +368,8 @@ function ProyectoProvider({children}) {
                 addColaborador,
                 getColaboradorByProyecto,
                 colaboradoresByProyecto,
-                deleteColaborador
+                deleteColaborador,
+                changeStateTarea
             }}
         >
             {children}

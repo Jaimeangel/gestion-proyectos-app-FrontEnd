@@ -12,8 +12,13 @@ import useAdmin from "../hooks/useAdmin";
 function CardTarea({tarea}){
 
     const isAdmin=useAdmin()
+    console.log(tarea)
 
-    const {deleteTareaById,updateTareaById}=useProyecto()
+    const {
+        deleteTareaById,
+        updateTareaById,
+        changeStateTarea
+    }=useProyecto()
 
     const [alert,setAlert]=useState({msg:'',error:false})
 
@@ -72,6 +77,18 @@ function CardTarea({tarea}){
         }
     }
 
+    const handlerStateTarea = async ()=>{
+        try {
+            await changeStateTarea(tarea._id)
+        } catch (err) {
+            console.log(err.message)
+            setAlert({
+                msg:err.message,
+                error:true
+            })   
+        }
+    }
+
     return (
         <div className="w-full flex flex-row flex-wrap items-start border-2 shadow px-5 py-3 rounded-md hover:scale-105 hover:shadow-lg">
             <div className="w-7/12">
@@ -102,7 +119,9 @@ function CardTarea({tarea}){
                 }
                 <ButtonForm
                     type='button'
-                    value='Completar'
+                    value={`${tarea.estado  ? 'Completa':'Incompleta'}`}
+                    color={`${tarea.estado  ? 'bg-yellow-400':'bg-cyan-500'}`}
+                    callback={handlerStateTarea}
                 />
             </div>
             <div>
