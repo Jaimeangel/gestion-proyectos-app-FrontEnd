@@ -2,7 +2,7 @@ import deniedAccees from '../assets/undraw_access_denied_re_awnf.svg'
 
 function AlertImage({msgError,imgAlert,msg,wdth,children}) {
   return (
-    <div className="w-full flex flex-col  items-center">
+    <div className="w-full max-w-[45rem] flex flex-col items-center mx-auto">
       <div className="w-full sm:w-1/2 flex justify-center">
         <img 
             src={imgAlert || deniedAccees} 

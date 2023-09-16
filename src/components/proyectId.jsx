@@ -4,11 +4,13 @@ import ButtonForm from "./buttonForm"
 import Alert from "./alert"
 import ModalTareas from "./modalTareas"
 import CardTarea from "./cardTarea"
+import AlertImage from "./alertImage"
 //Helpers
 import formatDate from "../helpers/formatDate"
 //Hooks
 import useAdmin from "../hooks/useAdmin"
-
+//Img
+import NoTareas from '../assets/undraw_os_upgrade_re_r0qa.svg'
 
 function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleCreateTarea,tareas}) {
 
@@ -84,6 +86,15 @@ function ProyectId({url,callbackDelete,data,alert,alertFormTarea,callbackHandleC
                 <div 
                     className="w-[60rem] mx-auto bg-white py-5 mt-5 rounded-lg shadow border grid grid-cols-1 px-7 gap-4"
                 >
+                    {
+                        tareas.length === 0 && (
+                            <AlertImage
+                                msg='Aun no hay tareas creadas'
+                                imgAlert={NoTareas}
+                                wdth='1/2'
+                            />
+                        )
+                    }
                     {
                         tareas?.map( tarea =>(
                             <CardTarea

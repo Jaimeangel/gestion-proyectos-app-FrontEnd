@@ -80,7 +80,7 @@ function CardTarea({tarea}){
                 <p className="text-lg font-semibold">{`Fecha de entrega: ${formatDate(tarea.fechaEntrega)}`}</p>
                 <p className="text-lg font-semibold">{`Prioridad: ${tarea.prioridad}`}</p>
             </div>
-            <div className="w-5/12 flex flex-row justify-center items-start gap-2">
+            <div className="w-5/12 flex flex-row justify-end items-start gap-2">
                 {
                     isAdmin && (
                         <>
