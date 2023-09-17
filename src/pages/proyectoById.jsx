@@ -30,8 +30,6 @@ function ProyectoById() {
     const isAdmin=useAdmin()
 
 
-    console.log(isAdmin)
-
     const [alertFormTarea,setAlertFormTarea]=useState({msg:'',error:false})
     const [errAlert,setErrAlert]=useState({msg:'',err:false})
     const [loading,setLoading]=useState(true)
@@ -86,10 +84,11 @@ function ProyectoById() {
             nameTarea,
             description,
             date,
-            prioridad
+            prioridad,
+            colaborador
         }=data;
 
-        if([nameTarea,description,date,prioridad].includes('')){
+        if([nameTarea,description,date,prioridad,colaborador].includes('')){
             setAlertFormTarea(
                 {
                     msg:'Todos los campos son obligatorios',
@@ -112,7 +111,8 @@ function ProyectoById() {
                 descripcion:description,
                 fechaEntrega:date,
                 prioridad,
-                proyecto:proyecto
+                proyecto:proyecto,
+                colaborador
             }
             await submitTarea(dataTarea)            
         } catch (err) {

@@ -12,7 +12,6 @@ import useAdmin from "../hooks/useAdmin";
 function CardTarea({tarea}){
 
     const isAdmin=useAdmin()
-    console.log(tarea)
 
     const {
         deleteTareaById,
@@ -96,6 +95,7 @@ function CardTarea({tarea}){
                 <p className="text-lg font-semibold text-align italic">{tarea.descripcion}</p>
                 <p className="text-lg font-semibold">{`Fecha de entrega: ${formatDate(tarea.fechaEntrega)}`}</p>
                 <p className="text-lg font-semibold">{`Prioridad: ${tarea.prioridad}`}</p>
+                <p className="text-lg font-semibold">{`Colaborador asignado: ${tarea.colaborador?.nombre}`}</p>
             </div>
             <div className="w-5/12 flex flex-row justify-end items-start gap-2">
                 {
