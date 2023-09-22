@@ -27,7 +27,8 @@ function ProyectoById() {
         getTareasByProyect,
         submitTarea,
         tareas,
-        submitTareaSocketIO
+        submitTareaSocketIO,
+        deleteTareaSocketIO
     }=useProyecto()
 
     const isAdmin=useAdmin()
@@ -76,6 +77,10 @@ function ProyectoById() {
     useEffect(()=>{
         socket.on('add-tarea',(tarea)=>{
             submitTareaSocketIO(tarea)
+        })
+
+        socket.on('delete-tarea',(tarea)=>{
+            deleteTareaSocketIO(tarea)
         })
     })
 

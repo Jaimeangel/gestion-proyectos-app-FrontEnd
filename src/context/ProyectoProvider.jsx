@@ -211,6 +211,9 @@ function ProyectoProvider({children}) {
             console.log(data)
             const newTareasUpdate = tareas.filter((tarea) => (tarea._id !== id ));
             setTareas(newTareasUpdate)
+
+            //socket.io
+            socket.emit('delete-task',data)
         } catch (error) {
             console.log(error)
             const errMsg= ValidateErrors(error)
@@ -358,6 +361,11 @@ function ProyectoProvider({children}) {
     const submitTareaSocketIO = (tarea)=>{
         setTareas([...tareas,tarea])
     }
+    
+    const deleteTareaSocketIO = (tareaDelete)=>{
+        const newTareasUpdate = tareas.filter((tarea) => (tarea._id !== tareaDelete._id ));
+        setTareas(newTareasUpdate)
+    }
 
     return (
         <ProyectoContext.Provider
@@ -384,7 +392,8 @@ function ProyectoProvider({children}) {
                 colaboradoresByProyecto,
                 deleteColaborador,
                 changeStateTarea,
-                submitTareaSocketIO
+                submitTareaSocketIO,
+                deleteTareaSocketIO
             }}
         >
             {children}
