@@ -353,6 +353,9 @@ function ProyectoProvider({children}) {
             const {data} = await axios.post(`http://localhost:4000/api/tareas/estado/${id}`,{},config)
             const newTareasUpdate = tareas.map((tarea) => (tarea._id === id ? data : tarea));
             setTareas(newTareasUpdate)
+            
+            //socket.io
+            socket.emit('change-state-task',data)
         } catch (error) {
             console.log(error)
             const errMsg= ValidateErrors(error)
@@ -372,6 +375,11 @@ function ProyectoProvider({children}) {
 
     const updateTareaSocketIO = (tareaUpdate)=>{
         const newTareasUpdate = tareas.map((tarea) => (tarea._id === tareaUpdate._id ? tareaUpdate : tarea));
+        setTareas(newTareasUpdate)
+    }
+
+    const changeStateTareaSocketIO = (tareaStateChange)=>{
+        const newTareasUpdate = tareas.map((tarea) => (tarea._id === tareaStateChange._id ? tareaStateChange : tarea));
         setTareas(newTareasUpdate)
     }
 
@@ -402,7 +410,8 @@ function ProyectoProvider({children}) {
                 changeStateTarea,
                 submitTareaSocketIO,
                 deleteTareaSocketIO,
-                updateTareaSocketIO
+                updateTareaSocketIO,
+                changeStateTareaSocketIO
             }}
         >
             {children}
