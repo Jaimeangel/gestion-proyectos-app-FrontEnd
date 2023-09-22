@@ -12,7 +12,9 @@ import AlertImage from "../components/alertImage";
 import ProyectId from "../components/proyectId";
 //Images
 import deleteProyectImg from '../assets/undraw_throw_away_re_x60k.svg'
-
+//Socket
+import { io } from "socket.io-client";
+let socket;
 
 function ProyectoById() {
     const {proyecto}=useParams()
@@ -28,7 +30,6 @@ function ProyectoById() {
     }=useProyecto()
 
     const isAdmin=useAdmin()
-
 
     const [alertFormTarea,setAlertFormTarea]=useState({msg:'',error:false})
     const [errAlert,setErrAlert]=useState({msg:'',err:false})
@@ -65,6 +66,17 @@ function ProyectoById() {
         tareas()
 
     },[])
+
+    useEffect(()=>{
+        socket = io('http://localhost:4000')
+        socket.emit("open-project-id",proyecto)
+    },[])
+
+    useEffect(()=>{
+        socket.on('respuesta',(persona)=>{
+            console.log('dentro de: ',persona)
+        })
+    })
 
     const deleteProyect= async ()=>{
         try {
@@ -125,7 +137,6 @@ function ProyectoById() {
         }
     }
 
-  
     return (
         <HandleStatus
             data={proyectoId}
