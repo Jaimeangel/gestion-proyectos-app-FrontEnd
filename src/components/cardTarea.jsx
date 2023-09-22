@@ -38,10 +38,11 @@ function CardTarea({tarea}){
             nameTarea,
             description,
             date,
-            prioridad
+            prioridad,
+            colaborador
         }=data;
 
-        if([nameTarea,description,date,prioridad].includes('')){
+        if([nameTarea,description,date,prioridad,colaborador].includes('')){
             setAlertFormTarea(
                 {
                     msg:'Todos los campos son obligatorios',
@@ -63,7 +64,8 @@ function CardTarea({tarea}){
                 nombre:nameTarea,
                 descripcion:description,
                 fechaEntrega:date,
-                prioridad
+                prioridad,
+                colaborador
             }
             await updateTareaById(dataTarea,tarea._id)            
         } catch (err) {

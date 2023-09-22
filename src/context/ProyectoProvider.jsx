@@ -208,7 +208,6 @@ function ProyectoProvider({children}) {
 
         try {
             const {data}= await axios.delete(`http://localhost:4000/api/tareas/${id}`,config)
-            console.log(data)
             const newTareasUpdate = tareas.filter((tarea) => (tarea._id !== id ));
             setTareas(newTareasUpdate)
 
@@ -237,6 +236,9 @@ function ProyectoProvider({children}) {
             const {data}= await axios.put(`http://localhost:4000/api/tareas/${id}`,dataUpdate,config)
             const newTareasUpdate = tareas.map((tarea) => (tarea._id === data._id ? data : tarea));
             setTareas(newTareasUpdate)
+
+            //socket.io
+            socket.emit('update-task',data)
         } catch (error) {
             console.log(error)
             const errMsg= ValidateErrors(error)
@@ -358,12 +360,18 @@ function ProyectoProvider({children}) {
         }
     }
 
+    //socket.io
     const submitTareaSocketIO = (tarea)=>{
         setTareas([...tareas,tarea])
     }
     
     const deleteTareaSocketIO = (tareaDelete)=>{
         const newTareasUpdate = tareas.filter((tarea) => (tarea._id !== tareaDelete._id ));
+        setTareas(newTareasUpdate)
+    }
+
+    const updateTareaSocketIO = (tareaUpdate)=>{
+        const newTareasUpdate = tareas.map((tarea) => (tarea._id === tareaUpdate._id ? tareaUpdate : tarea));
         setTareas(newTareasUpdate)
     }
 
@@ -393,7 +401,8 @@ function ProyectoProvider({children}) {
                 deleteColaborador,
                 changeStateTarea,
                 submitTareaSocketIO,
-                deleteTareaSocketIO
+                deleteTareaSocketIO,
+                updateTareaSocketIO
             }}
         >
             {children}

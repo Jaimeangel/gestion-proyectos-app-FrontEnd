@@ -22,7 +22,8 @@ function FormTarea({type,alert,handleForm,close,data={}}) {
 
     const handler=(e)=>{
         e.preventDefault()
-        handleForm({nameTarea,description,date,prioridad,colaborador})
+        const colabState = proyectoId.colaboradores.find(clbr=>clbr.nombre === colaborador)
+        handleForm({nameTarea,description,date,prioridad,colaborador:colabState._id})
         close()
     } 
 
@@ -35,11 +36,6 @@ function FormTarea({type,alert,handleForm,close,data={}}) {
             setColaborador(data.colaborador.nombre)
         }
     },[])
-
-    const handlerStateColaborador =(value)=>{
-        const colabState = proyectoId.colaboradores.find(colaborador=>colaborador.nombre === value)
-        setColaborador(colabState._id)
-    }
 
     return (
         <form onSubmit={handler} className="w-5/5">
@@ -83,7 +79,7 @@ function FormTarea({type,alert,handleForm,close,data={}}) {
                 <label className='text-lg font-bold tracking-wider italic'>Asignar un colaborador</label>
                 <select
                     value={colaborador}
-                    onChange={(e)=>handlerStateColaborador(e.target.value)}
+                    onChange={(e)=>setColaborador(e.target.value)}
                     className="w-full outline-none bg-gray-50 cursor-pointer border rounded-xl px-6 py-2 border-black"
                 >
                     <option value=''>Elige una opcion</option>
