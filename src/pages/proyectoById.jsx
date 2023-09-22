@@ -26,7 +26,8 @@ function ProyectoById() {
         alert,
         getTareasByProyect,
         submitTarea,
-        tareas
+        tareas,
+        submitTareaSocketIO
     }=useProyecto()
 
     const isAdmin=useAdmin()
@@ -73,8 +74,8 @@ function ProyectoById() {
     },[])
 
     useEffect(()=>{
-        socket.on('respuesta',(persona)=>{
-            console.log('dentro de: ',persona)
+        socket.on('add-tarea',(tarea)=>{
+            submitTareaSocketIO(tarea)
         })
     })
 

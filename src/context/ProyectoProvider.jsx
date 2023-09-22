@@ -1,6 +1,9 @@
 import { createContext , useState, useEffect} from "react";
 import axios from "axios";
 import ValidateErrors from "../helpers/validateErrors";
+//Socket
+import { io } from "socket.io-client";
+let socket;
 
 const ProyectoContext=createContext()
 
@@ -36,6 +39,10 @@ function ProyectoProvider({children}) {
             throw new Error(errMsg);
         }
     }
+
+    useEffect(()=>{
+        socket = io('http://localhost:4000')
+    },[])
 
     const showAlert=(alerta)=>{
         setAlert(alerta)
@@ -154,6 +161,9 @@ function ProyectoProvider({children}) {
         try {
             const {data} = await axios.post('http://localhost:4000/api/tareas',dataTarea,config)
             setTareas([...tareas,data])
+
+            //socket.io
+            socket.emit('new-task',data)
         } catch (error) {
             console.log(error)
             const errMsg= ValidateErrors(error)
@@ -345,6 +355,10 @@ function ProyectoProvider({children}) {
         }
     }
 
+    const submitTareaSocketIO = (tarea)=>{
+        setTareas([...tareas,tarea])
+    }
+
     return (
         <ProyectoContext.Provider
             value={{
@@ -369,7 +383,8 @@ function ProyectoProvider({children}) {
                 getColaboradorByProyecto,
                 colaboradoresByProyecto,
                 deleteColaborador,
-                changeStateTarea
+                changeStateTarea,
+                submitTareaSocketIO
             }}
         >
             {children}
